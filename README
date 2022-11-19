@@ -1,10 +1,10 @@
 This directory contains st, simple terminal emulator for X.
 
-It is a fork of suckless' st v0.8.4.  The original sources can be
+It is a fork of suckless' st 0.8.4.  The original sources can be
 downloaded from:
 
   1. https://dl.suckless.org/st/st-0.8.4.tar.gz
   2. https://git.suckless.org/st
 
 st is licensed through MIT/X Consortium License.
-See LICENSE file for the complete license and copyright notices.
+See LICENSE file for copyright and license details.
