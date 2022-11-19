@@ -1,4 +1,4 @@
-This directory contains st, simple terminal.
+This directory contains st, simple terminal emulator for X.
 
 It is a fork of suckless' st v0.8.4.  The original sources can be
 downloaded from:
