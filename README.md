@@ -21,9 +21,10 @@ Dependencies
 ------------
 Build time:
 - c99 compiler
-- make(1p), sh(1p) and other POSIX utilities like mkdir(1p), cp(1p),
-  rm(1p)
+- make(1p), sh(1p) and other POSIX utilities like sed(1p), mkdir(1p),
+  cp(1p), chmod(1p), rm(1p)
 - libX11
+- ncurses (optional, for compiling st terminfo entry)
 - fontconfig
 - freetype2
 
