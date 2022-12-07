@@ -1,5 +1,5 @@
-st - simple terminal emulator for X
-===================================
+st - terminal emulator for X
+============================
 st is a simple terminal emulator for X, based on Aurélien APTEL
 <aurelien dot aptel at gmail dot com> bt source code.
 
