@@ -37,6 +37,17 @@ st can be customized by editing `config.h` and (re)compiling the
 source code.
 
 
+Usage
+-----
+If you did not install st with `make; make install`, you must compile
+the st terminfo entry with the following command:
+```sh
+tic -sx st.info
+```
+
+See the man page for additional details.
+
+
 License and Copyright
 ---------------------
 st is licensed through MIT/X Consortium License.
