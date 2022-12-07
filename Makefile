@@ -17,7 +17,7 @@ x.o: arg.h config.h st.h win.h
 ${OBJ}: config.h config.mk
 
 st: ${OBJ}
-	${CC} -o $@ ${OBJ} ${LDFLAGS}
+	${LD} ${OBJ} ${LDFLAGS} -o $@
 
 install: st
 	mkdir -p  ${DESTDIR}${PREFIX}/bin
@@ -38,3 +38,6 @@ clean:
 	rm -f st ${OBJ}
 
 .PHONY: all uninstall clean
+
+# vim:cc=72:tw=70
+# End of file.

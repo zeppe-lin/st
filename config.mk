@@ -1,8 +1,6 @@
 # st version
 VERSION = 0.8.4zpln
 
-# Customize below to fit your system
-
 # paths
 PREFIX = /usr/local
 MANPREFIX = ${PREFIX}/share/man
@@ -36,3 +34,7 @@ LDFLAGS = ${LIBS}
 
 # compiler and linker
 CC = cc
+LD = ${CC}
+
+# vim:cc=72:tw=70
+# End of file.
