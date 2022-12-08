@@ -164,6 +164,7 @@ Copy the selected text to the clipboard selection.
 .TP
 .B Ctrl-Shift-v
 Paste from the clipboard selection.
+
 .SH VIM BROWSE
 The vim-browse patch offers the possibility to move through the
 terminal history-buffer, search for strings and use VIM-like motions,
@@ -175,30 +176,6 @@ possible to move through terminal history while an application
 currently writes to the terminal buffer and comes with an overlay
 highlighting the current search results on screen and showing current
 operation / motions / search string.
-.SS Customization
-The following variables can be adapted from the defaults defined in
-\fIconfig.def.h\fR:
-.TP
-.B buffSize
-Size of the buffer history in lines.
-.TP
-.B highlightBg, highlightFg
-Background / Foreground color of search results.
-.TP
-.B currentBg
-Background color used in order to highlight the current history cursor via a
-cross.
-.TP
-.B nmKeys
-Custom commands (= sequence of operations/motion), the first character is the
-key to be used in order to execute the sequence of operations / motions.
-.TP
-.B styleSearch
-Style of the search string overlay.
-.TP
-.B style
-Styles of the command string overlay depending on the currently active
-operation ([yank, visual, visualLine, no operation]).
 .SS Shortcuts
 .LP
 .B Enter/Leave Different modes
