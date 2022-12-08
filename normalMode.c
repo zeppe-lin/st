@@ -1,3 +1,6 @@
+// This file is part of vimbrowse patch.
+// See LICENSE file for copyright and license details.
+
 #include <X11/keysym.h>
 #include <X11/XKBlib.h>
 
@@ -282,3 +285,5 @@ void historyPreDraw() {
 	op = (Pos){.p = {term.c.x, term.c.y, 0}};
 	historyOpToggle(-1, 0);
 }
+
+// End of file.
