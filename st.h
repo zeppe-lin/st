@@ -127,3 +127,8 @@ extern char *termname;
 extern unsigned int tabspaces;
 extern unsigned int defaultfg;
 extern unsigned int defaultbg;
+
+// copyurl
+extern const char URLChars[];
+extern const char* URLStrings[];
+extern unsigned int const amountURLStrings;

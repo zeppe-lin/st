@@ -120,7 +120,7 @@ static unsigned int defaultcs = 256;  // cursor color
 static unsigned int defaultrcs = 257; // reverse cursor color
 
 //////////////////////////////////////////////////////////////////////
-/// [Vim Browse] Appearance.
+/// [VimBrowse] settings and appearance.
 //////////////////////////////////////////////////////////////////////
 
 // Background color (colorname index) used in order to highlight the
@@ -146,7 +146,7 @@ char const wDelL[] = " \t";
 // custom commands (= sequence of operations/motion), the first
 // character is a key to be used in order to execute the sequence of
 // operations/motions.
-char *nmKeys [] = {
+char *nmKeys[] = {
   "R/Building\nN",
   "r/Building\n",
   "X/juli@machine\nN",
@@ -176,10 +176,29 @@ Glyph style[] = {
   // No operation.
   {' ', ATTR_ITALIC, 232, 12}
 };
+// End of [Vim Browse].
+
 //////////////////////////////////////////////////////////////////////
-// End of vimbrowse customization settings.
+/// [CopyUrl] settings.
 //////////////////////////////////////////////////////////////////////
 
+// URL allowed symbols.
+// () and [] can appear in urls, but excluding them here will reduce
+// false positives when figuring out where a given url ends.
+const char URLChars[] =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  "abcdefghijklmnopqrstuvwxyz"
+  "0123456789-._~:/?#@!$&'*+,;=%";
+
+// URL allowed schemes.
+const char* URLStrings[] = {
+  "http://", "https://"
+};
+unsigned int const amountURLStrings =
+  sizeof(URLStrings) / sizeof(*URLStrings);
+// End of [CopyUrl].
+
+//////////////////////////////////////////////////////////////////////
 // Default shape of cursor.
 // 2: Block ("█")
 // 4: Underline ("_")

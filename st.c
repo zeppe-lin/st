@@ -204,7 +204,7 @@ static int32_t tdefcolor(int *, int *, int);
 static void tdeftran(char);
 static void tstrsequence(uchar);
 static void tsetcolor(int, int, int, uint32_t, uint32_t);
-static char * findlastany(char *, const char**, size_t);
+static const char *findlastany(const char *, const char**, size_t);
 
 static void drawregion(int, int, int, int);
 
@@ -2632,10 +2632,10 @@ tsetcolor( int row, int start, int end, uint32_t fg, uint32_t bg )
 	}
 }
 
-char *
-findlastany(char *str, const char** find, size_t len)
+const char *
+findlastany(const char *str, const char** find, size_t len)
 {
-	char* found = NULL;
+	const char* found = NULL;
 	int i = 0;
 	for(found = str + strlen(str) - 1; found >= str; --found) {
 		for(i = 0; i < len; i++) {
@@ -2654,89 +2654,51 @@ findlastany(char *str, const char** find, size_t len)
 ** FIXME: doesn't handle urls that span multiple lines; will need to add support
 **        for multiline "getsel()" first
 */
+
 void
 copyurl(const Arg *arg) {
-	/* () and [] can appear in urls, but excluding them here will reduce false
-	 * positives when figuring out where a given url ends.
-	 */
+	int row = 0;    // row of current URL
+	int col = 0;    // column of current URL start
+	int colend = 0; // column of last occurrence
+	int passes = 0; // how many rows have been scanned
 
-	static const char URLCHARS[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-		"abcdefghijklmnopqrstuvwxyz"
-		"0123456789-._~:/?#@!$&'*+,;=%";
-
-	static const char* URLSTRINGS[] = {"http://", "https://"};
-
-	/* remove highlighting from previous selection if any */
-	if(sel.ob.x >= 0 && sel.oe.x >= 0)
-		tsetcolor(sel.nb.y, sel.ob.x, sel.oe.x + 1, defaultfg, defaultbg);
-
-	int i = 0,
-		row = 0, /* row of current URL */
-		col = 0, /* column of current URL start */
-		startrow = 0, /* row of last occurrence */
-		colend = 0, /* column of last occurrence */
-		passes = 0; /* how many rows have been scanned */
-
-	char *linestr = calloc(term.col+1, sizeof(Rune));
-	char *c = NULL,
-		 *match = NULL;
+	char linestr[term.col + 1];
+	const char *c = NULL;
+	const char *match = NULL;
 
 	row = (sel.ob.x >= 0 && sel.nb.y > 0) ? sel.nb.y : term.bot;
 	LIMIT(row, term.top, term.bot);
-	startrow = row;
 
 	colend = (sel.ob.x >= 0 && sel.nb.y > 0) ? sel.nb.x : term.col;
 	LIMIT(colend, 0, term.col);
 
 	/*
- 	** Scan from (term.bot,term.col) to (0,0) and find
+	** Scan from (term.row - 1,term.col - 1) to (0,0) and find
 	** next occurrance of a URL
 	*/
-	while(passes !=term.bot + 2) {
+	for (passes = 0; passes < term.row; passes++) {
 		/* Read in each column of every row until
- 		** we hit previous occurrence of URL
+		** we hit previous occurrence of URL
 		*/
-		for (col = 0, i = 0; col < colend; ++col,++i) {
-			linestr[i] = term.line[row][col].u;
-		}
-		linestr[term.col] = '\0';
+		for (col = 0; col < colend; ++col)
+			linestr[col] = term.line[row][col].u < 128 ? term.line[row][col].u : ' ';
+		linestr[col] = '\0';
 
-		if ((match = findlastany(linestr, URLSTRINGS,
-						sizeof(URLSTRINGS)/sizeof(URLSTRINGS[0]))))
+		if ((match = findlastany(linestr, URLStrings, amountURLStrings)))
 			break;
 
-		if (--row < term.top)
-			row = term.bot;
+		if (--row < 0)
+			row = term.row - 1;
 
 		colend = term.col;
-		passes++;
 	};
 
 	if (match) {
-		/* must happen before trim */
-		selclear();
-		sel.ob.x = strlen(linestr) - strlen(match);
-
-		/* trim the rest of the line from the url match */
-		for (c = match; *c != '\0'; ++c)
-			if (!strchr(URLCHARS, *c)) {
-				*c = '\0';
-				break;
-			}
-
-		/* highlight selection by inverting terminal colors */
-		tsetcolor(row, sel.ob.x, sel.ob.x + strlen( match ), defaultbg, defaultfg);
-
-		/* select and copy */
-		sel.mode = 1;
-		sel.type = SEL_REGULAR;
-		sel.oe.x = sel.ob.x + strlen(match)-1;
-		sel.ob.y = sel.oe.y = row;
-		selnormalize();
-		tsetdirt(sel.nb.y, sel.ne.y);
+		size_t l = strspn(match, URLChars);
+		selstart(match - linestr, row, 0);
+		selextend(match - linestr + l - 1, row, SEL_REGULAR, 0);
+		selextend(match - linestr + l - 1, row, SEL_REGULAR, 1);
 		xsetsel(getsel());
 		xclipcopy();
 	}
-
-	free(linestr);
 }
