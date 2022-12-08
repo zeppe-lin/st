@@ -236,7 +236,10 @@ static Rune utfmin[UTF_SIZ + 1] = {       0,    0,  0x80,  0x800,  0x10000};
 static Rune utfmax[UTF_SIZ + 1] = {0x10FFFF, 0x7F, 0x7FF, 0xFFFF, 0x10FFFF};
 
 int buffCols;
+
+// VimBrowse settings.
 extern int const buffSize;
+
 int histOp, histMode, histOff, insertOff, altToggle, *mark;
 Line *buf = NULL;
 static TCursor c[3];
@@ -2656,7 +2659,8 @@ copyurl(const Arg *arg) {
 	/* () and [] can appear in urls, but excluding them here will reduce false
 	 * positives when figuring out where a given url ends.
 	 */
-	static char URLCHARS[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+	static const char URLCHARS[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		"abcdefghijklmnopqrstuvwxyz"
 		"0123456789-._~:/?#@!$&'*+,;=%";
 
