@@ -1,0 +1,7 @@
+# build artefacts
+config.h
+*.o
+st
+
+# vim undo
+.*.un~
