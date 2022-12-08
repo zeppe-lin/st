@@ -6,6 +6,10 @@
 
 // Font.
 // See http://freedesktop.org/software/fontconfig/fontconfig-user.html
+//
+// Can be redefined in ~/.Xresources:
+//   st.font: Sans Mono:pixelsize=12:antialias=true:autohint=true
+//
 static char *font = "Sans Mono:pixelsize=12:antialias=true:autohint=true";
 static int borderpx = 2;
 
