@@ -1,6 +1,8 @@
-.TH ST 1 st\-@VERSION@
+.TH ST 1 st\-0.8.4zpln
+
 .SH NAME
 st \- simple terminal
+
 .SH SYNOPSIS
 .B st
 .RB [ \-aiv ]
@@ -47,9 +49,11 @@ st \- simple terminal
 .RB \-l
 .IR line
 .RI [ stty_args ...]
+
 .SH DESCRIPTION
 .B st
 is a simple terminal emulator.
+
 .SH OPTIONS
 .TP
 .B \-a
@@ -78,8 +82,8 @@ defines the window instance name (default $TERM).
 .BI \-o " iofile"
 writes all the I/O to
 .I iofile.
-This feature is useful when recording st sessions. A value of "-" means
-standard output.
+This feature is useful when recording st sessions.  A value of "-"
+means standard output.
 .TP
 .BI \-T " title"
 defines the window title (default 'st').
@@ -96,18 +100,18 @@ use a tty
 .I line
 instead of a pseudo terminal.
 .I line
-should be a (pseudo-)serial device (e.g. /dev/ttyS0 on Linux for serial port
-0).
-When this flag is given
-remaining arguments are used as flags for
+should be a (pseudo-)serial device (e.g. /dev/ttyS0 on Linux for
+serial port 0).
+When this flag is given remaining arguments are used as flags for
 .BR stty(1).
-By default st initializes the serial line to 8 bits, no parity, 1 stop bit
-and a 38400 baud rate. The speed is set by appending it as last argument
-(e.g. 'st -l /dev/ttyS0 115200'). Arguments before the last one are
+By default st initializes the serial line to 8 bits, no parity, 1 stop
+bit and a 38400 baud rate.  The speed is set by appending it as last
+argument (e.g. 'st -l /dev/ttyS0 115200').  Arguments before the last
+one are
 .BR stty(1)
-flags. If you want to set odd parity on 115200 baud use for example 'st -l
-/dev/ttyS0 parenb parodd 115200'. Set the number of bits by using for
-example 'st -l /dev/ttyS0 cs7 115200'. See
+flags.  If you want to set odd parity on 115200 baud use for example
+'st -l /dev/ttyS0 parenb parodd 115200'.  Set the number of bits by
+using for example 'st -l /dev/ttyS0 cs7 115200'.  See
 .BR stty(1)
 for more arguments and cases.
 .TP
@@ -123,6 +127,7 @@ on the command line, as in xterm / rxvt.
 This option is only intended for compatibility,
 and all the remaining arguments are used as a command
 even without it.
+
 .SH SHORTCUTS
 .TP
 .B Break
@@ -160,15 +165,16 @@ Copy the selected text to the clipboard selection.
 .B Ctrl-Shift-v
 Paste from the clipboard selection.
 .SH VIM BROWSE
-The vim-browse patch offers the possibility to move through the terminal
-history-buffer, search for strings and use VIM-like motions, operations
-and quantifiers.
+The vim-browse patch offers the possibility to move through the
+terminal history-buffer, search for strings and use VIM-like motions,
+operations and quantifiers.
 .br
-It operates on top of the history-patch, which comes with a set of optional
-features that can be compiled-in as separate patches. It is possible to move
-through terminal history while an application currently writes to the terminal
-buffer and comes with an overlay highlighting the current search results on
-screen and showing current operation / motions / search string.
+It operates on top of the history-patch, which comes with a set of
+optional features that can be compiled-in as separate patches.  It is
+possible to move through terminal history while an application
+currently writes to the terminal buffer and comes with an overlay
+highlighting the current search results on screen and showing current
+operation / motions / search string.
 .SS Customization
 The following variables can be adapted from the defaults defined in
 \fIconfig.def.h\fR:
@@ -203,7 +209,8 @@ operation ([yank, visual, visualLine, no operation]).
 Enter normal mode (give input control to the vim/history patch).
 .TP
 .BR Escape , Enter , i
-Enter insert mode (return control back to st) and abort resp. terminate operation.
+Enter insert mode (return control back to st) and abort resp.
+terminate operation.
 .br
 Operation/Motion active (see below): yes.
 .TP
@@ -218,12 +225,12 @@ Operation/Motion active (see below): no.
 .RS 4
 .TP
 .B y
-Yank mode (yank 'till the next motion). Terminated via a motion or as described
-above.
+Yank mode (yank 'till the next motion).  Terminated via a motion or as
+described above.
 .TP
 .B v
-Visual mode (start selection of characters in REGULAR mode, that can be toggled
-to RECTANGULAR selection mode via motion t).
+Visual mode (start selection of characters in REGULAR mode, that can
+be toggled to RECTANGULAR selection mode via motion t).
 Terminated by yanking or as described above.
 .TP
 .B V
@@ -239,7 +246,8 @@ Terminated by yanking or as described above.
 Quantifier.
 .TP
 .BR i , a
-Inner / around (used for motions like yiw ([operation]{i/a}{w/W/}/}/[/]/(/)/"/').
+Inner / around (used for motions like yiw
+([operation]{i/a}{w/W/}/}/[/]/(/)/"/')).
 Matching parenthesis is not as sophisticated as in vim.
 .br
 Operation active: yes.
@@ -272,8 +280,8 @@ Move cursor left / right.
 Move cursor to first line, center, last line on screen.
 .TP
 .B s
-Toggle MODE_ALTSCREEN (e.g. if vim/htop are currently running, press s in order
-to go to the history buffer filled by previous commands.
+Toggle MODE_ALTSCREEN (e.g. if vim/htop are currently running, press s
+in order to go to the history buffer filled by previous commands.
 .TP
 .B S
 Toggle MODE_ALTSCREEN once.
@@ -296,7 +304,8 @@ Operation active: visual.
 Move cursor to the next / previous occurrence of the search string.
 .TP
 .BR w , W
-Move cursor to the beginning of the next word (with different word delimiters).
+Move cursor to the beginning of the next word (with different word
+delimiters).
 .TP
 .BR b , B
 Move cursor to the beginning of the previous word.
@@ -308,8 +317,8 @@ Move cursor to the next word-end.
 Scroll buffer half a screen up / down.
 .TP
 .BR Ctrl+b , Ctrl+f
-Move cursor to the first / last line on the screen and scroll the buffer
-up / down.
+Move cursor to the first / last line on the screen and scroll the
+buffer up / down.
 .TP
 .B y
 Yank selection.
@@ -319,21 +328,28 @@ Operation active: yank.
 .B Ctrl+h
 Hide cursor.
 .RE
-Custom commands can be added to the variable \fBnmKeys\fR in the config.def.h
-combining the aforementioned commands.
+Custom commands can be added to the variable \fBnmKeys\fR in the
+config.def.h combining the aforementioned commands.
+
 .SH CUSTOMIZATION
 .B st
-can be customized by creating a custom config.h and (re)compiling the source
-code. This keeps it fast, secure and simple.
+can be customized by creating a custom config.h and (re)compiling the
+source code.  This keeps it fast, secure and simple.
+
 .SH AUTHORS
 See the LICENSE file for the authors.
+
 .SH LICENSE
 See the LICENSE file for the terms of redistribution.
+
 .SH SEE ALSO
 .BR tabbed (1),
 .BR utmp (1),
 .BR stty (1),
 .BR scroll (1)
+
 .SH BUGS
 See the TODO file in the distribution.
 
+.\" vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+.\" End of file.
