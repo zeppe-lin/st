@@ -1,7 +1,7 @@
 .TH ST 1 st\-@VERSION@
 
 .SH NAME
-st \- simple terminal
+st \- simple terminal emulator for X
 
 .SH SYNOPSIS
 .B st
