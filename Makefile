@@ -41,6 +41,3 @@ clean:
 	rm -f st ${OBJ}
 
 .PHONY: all uninstall clean
-
-# vim:cc=72:tw=70
-# End of file.
