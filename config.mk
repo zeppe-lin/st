@@ -2,7 +2,7 @@
 VERSION = 0.8.4zpln
 
 # paths
-PREFIX = /usr/local
+PREFIX    = /usr/local
 MANPREFIX = ${PREFIX}/share/man
 
 # DragonFlyBSD, FreeBSD
@@ -29,12 +29,9 @@ LIBS = -L${X11LIB} -lX11 -lm -lrt -lutil ${FT2LIB} -lfreetype
 # flags
 CPPFLAGS = -D_XOPEN_SOURCE=600 -D_BSD_SOURCE -DVERSION=\"${VERSION}\" \
 	   ${INCS}
-CFLAGS = -std=c99 -pedantic -Wall -Wextra -Wformat
-LDFLAGS = ${LIBS}
+CFLAGS   = -std=c99 -pedantic -Wall -Wextra -Wformat
+LDFLAGS  = ${LIBS}
 
 # compiler and linker
 CC = cc
 LD = ${CC}
-
-# vim:cc=72:tw=70
-# End of file.
