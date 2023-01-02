@@ -32,8 +32,8 @@ INSTALL
 The shell commands `make && make install` should build and install
 this package.  See *config.mk* file for configuration parameters.
 
-*st* can be customized by editing *config.h* file and (re)compiling
-the source code.
+*st* can be customized by creating a custom *config.h* file and
+(re)compiling the source code.
 
 USAGE
 -----
