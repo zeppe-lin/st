@@ -10,6 +10,9 @@ all: st
 .c.o:
 	${CC} ${CFLAGS} ${CPPFLAGS} -c $<
 
+%: %.in
+	sed "s/@VERSION@/${VERSION}/g" $< > $@
+
 config.h:
 	cp config.def.h config.h
 
