@@ -5,7 +5,7 @@ include config.mk
 SRC = st.c x.c
 OBJ = $(SRC:.c=.o)
 
-all: st
+all: st st.1
 
 .c.o:
 	${CC} ${CFLAGS} ${CPPFLAGS} -c $<
@@ -25,7 +25,7 @@ ${OBJ}: config.h config.mk
 st: ${OBJ}
 	${LD} ${OBJ} ${LDFLAGS} -o $@
 
-install: st
+install: all
 	mkdir -p   ${DESTDIR}${PREFIX}/bin
 	mkdir -p   ${DESTDIR}${MANPREFIX}/man1
 	cp -f st   ${DESTDIR}${PREFIX}/bin/
