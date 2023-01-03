@@ -1,7 +1,7 @@
 ABOUT
 -----
 This directory contains *st*, a simple terminal emulator for X that is
-based on Aurélien APTEL (<aurelien dot aptel at gmail dot com>) *bt*
+based on Aurélien APTEL `<aurelien dot aptel at gmail dot com>` *bt*
 source code.
 
 This *st* distribution is a fork of suckless' *st* version 0.8.4 with
