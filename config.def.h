@@ -1,7 +1,7 @@
 // See LICENSE file for copyright and license details.
 
 //////////////////////////////////////////////////////////////////////
-/// Appearance.
+// Appearance.                                                      //
 //////////////////////////////////////////////////////////////////////
 
 // Font.
@@ -124,7 +124,7 @@ static unsigned int defaultcs = 256;  // cursor color
 static unsigned int defaultrcs = 257; // reverse cursor color
 
 //////////////////////////////////////////////////////////////////////
-/// [VimBrowse] settings and appearance.
+// [VimBrowse] settings and appearance.                             //
 //////////////////////////////////////////////////////////////////////
 
 // Background color (colorname index) used in order to highlight the
@@ -180,10 +180,11 @@ Glyph style[] = {
   // No operation.
   {' ', ATTR_ITALIC, 232, 12}
 };
-// End of [Vim Browse].
+
+// End of [Vim Browse] settings and appearance.
 
 //////////////////////////////////////////////////////////////////////
-/// [CopyUrl] settings.
+// [CopyUrl] settings.                                              //
 //////////////////////////////////////////////////////////////////////
 
 // URL allowed symbols.
@@ -196,11 +197,12 @@ const char URLChars[] =
 
 // URL allowed schemes.
 const char* URLStrings[] = {
-  "http://", "https://"
+  "http://", "https://", "file://"
 };
 unsigned int const amountURLStrings =
   sizeof(URLStrings) / sizeof(*URLStrings);
-// End of [CopyUrl].
+
+// End of [CopyUrl] settings.
 
 //////////////////////////////////////////////////////////////////////
 // Default shape of cursor.
