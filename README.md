@@ -6,6 +6,7 @@ source code.
 
 This *st* distribution is a fork of suckless' *st* version 0.8.4 with
 the following patches:
+
   * clipboard
   * copyurl
   * open copied url
@@ -48,7 +49,6 @@ LICENSE
 -------
 *st* is licensed through MIT/X Consortium License.
 See *LICENSE* file for copyright and license details.
-
 
 <!-- vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 End of file. -->
