@@ -54,7 +54,7 @@ st \- simple terminal emulator for X
 
 .SH DESCRIPTION
 .B st
-is a simple terminal emulator.
+is a simple terminal emulator for X.
 
 .SH OPTIONS
 .TP
