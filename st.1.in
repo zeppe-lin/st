@@ -1,4 +1,4 @@
-.TH ST 1 st\-@VERSION@
+.TH ST 1 "January 2023" "st @VERSION@"
 
 .SH NAME
 st \- simple terminal emulator for X
