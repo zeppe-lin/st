@@ -40,4 +40,4 @@ uninstall:
 clean:
 	rm -f st ${OBJ}
 
-.PHONY: all uninstall clean
+.PHONY: all install uninstall clean
