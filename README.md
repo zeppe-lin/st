@@ -1,12 +1,11 @@
 ABOUT
 -----
-This directory contains *st*, a simple terminal emulator for X that is
-based on Aurélien APTEL `<aurelien dot aptel at gmail dot com>` *bt*
+This directory contains _st_, a simple terminal emulator for X that is
+based on Aurélien APTEL `<aurelien dot aptel at gmail dot com>` _bt_
 source code.
 
-This *st* distribution is a fork of suckless' *st* version 0.8.4 with
+This _st_ distribution is a fork of suckless' _st_ version 0.8.4 with
 the following patches:
-
   * clipboard
   * copyurl
   * open copied url
@@ -23,7 +22,7 @@ REQUIREMENTS
 Build time:
   * c99 compiler
   * POSIX sh(1p), make(1p) and "mandatory utilities"
-  * ncurses is optional, for compiling *terminfo* entry
+  * ncurses is optional, for compiling _terminfo_ entry
   * libX11
   * fontconfig
   * freetype2
@@ -31,15 +30,15 @@ Build time:
 INSTALL
 -------
 The shell commands `make && make install` should build and install
-this package.  See *config.mk* file for configuration parameters.
+this package.  See _config.mk_ file for configuration parameters.
 
-*st* can be customized by creating a custom *config.h* file and
+_st_ can be customized by creating a custom _config.h_ file and
 (re)compiling the source code.
 
 USAGE
 -----
-If you did not install *st* with `make && make install`, you must
-compile the *st* terminfo entry with the following command:
+If you did not install _st_ with `make && make install`, you must
+compile the _st_ terminfo entry with the following command:
 ```sh
 tic -sx st.info
 ```
@@ -47,8 +46,8 @@ See `terminfo(5)` for additional details.
 
 LICENSE
 -------
-*st* is licensed through MIT/X Consortium License.
-See *LICENSE* file for copyright and license details.
+_st_ is licensed through MIT/X Consortium License.
+See _LICENSE_ file for copyright and license details.
 
 <!-- vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 End of file. -->
