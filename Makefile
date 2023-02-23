@@ -5,13 +5,10 @@ include config.mk
 SRC = st.c x.c
 OBJ = $(SRC:.c=.o)
 
-all: st st.1
+all: st
 
 .c.o:
 	${CC} ${CFLAGS} ${CPPFLAGS} -c $<
-
-%: %.in
-	sed "s/@VERSION@/${VERSION}/g" $< > $@
 
 config.h:
 	cp config.def.h config.h
@@ -29,7 +26,8 @@ install: all
 	mkdir -p   ${DESTDIR}${PREFIX}/bin
 	mkdir -p   ${DESTDIR}${MANPREFIX}/man1
 	cp -f st   ${DESTDIR}${PREFIX}/bin/
-	cp -f st.1 ${DESTDIR}${MANPREFIX}/man1/
+	sed "s/@VERSION@/${VERSION}/g" st.1.in > \
+		${DESTDIR}${MANPREFIX}/man1/st.1
 	tic -sx st.info
 	@echo See the README file regarding the terminfo entry of st.
 
