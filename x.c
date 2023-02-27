@@ -1,4 +1,4 @@
-/* See LICENSE for license details. */
+/* See LICENSE file for copyright and license details. */
 #include <errno.h>
 #include <math.h>
 #include <limits.h>
