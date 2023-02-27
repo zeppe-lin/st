@@ -30,12 +30,12 @@
 #endif
 
 /* Arbitrary sizes */
-#define UTF_INVALID   0xFFFD
-#define UTF_SIZ       4
-#define ESC_BUF_SIZ   (128*UTF_SIZ)
-#define ESC_ARG_SIZ   16
-#define STR_BUF_SIZ   ESC_BUF_SIZ
-#define STR_ARG_SIZ   ESC_ARG_SIZ
+#define UTF_INVALID		0xFFFD
+#define UTF_SIZ			4
+#define ESC_BUF_SIZ		(128*UTF_SIZ)
+#define ESC_ARG_SIZ		16
+#define STR_BUF_SIZ		ESC_BUF_SIZ
+#define STR_ARG_SIZ		ESC_ARG_SIZ
 
 /* macros */
 #define IS_SET(flag)		((term.mode & (flag)) != 0)
@@ -47,13 +47,13 @@ static inline int max(int a, int b) { return a > b ? a : b; }
 static inline int min(int a, int b) { return a < b ? a : b; }
 
 enum term_mode {
-	MODE_WRAP        = 1 << 0,
-	MODE_INSERT      = 1 << 1,
-	MODE_ALTSCREEN   = 1 << 2,
-	MODE_CRLF        = 1 << 3,
-	MODE_ECHO        = 1 << 4,
-	MODE_PRINT       = 1 << 5,
-	MODE_UTF8        = 1 << 6,
+	MODE_WRAP      = 1 << 0,
+	MODE_INSERT    = 1 << 1,
+	MODE_ALTSCREEN = 1 << 2,
+	MODE_CRLF      = 1 << 3,
+	MODE_ECHO      = 1 << 4,
+	MODE_PRINT     = 1 << 5,
+	MODE_UTF8      = 1 << 6,
 };
 
 enum cursor_movement {
@@ -484,7 +484,7 @@ int historyBufferScroll(int n) {
 		if (sel.oe.y == last && sel.ob.y == last) selclear();
 	}
 	selnormalize();
-  // Clear the new region exposed by the shift.
+	// Clear the new region exposed by the shift.
 	if (!histOp) tclearregion(0, n>0?r+1:0, buffCols-1, n>0?term.row:p-1);
 	return 1;
 }
@@ -556,7 +556,7 @@ selstart(int col, int row, int snap)
 	selclear();
 	sel.mode = SEL_EMPTY;
 	sel.type = SEL_REGULAR;
-	sel.alt = IS_SET(MODE_ALTSCREEN);
+	sel.alt  = IS_SET(MODE_ALTSCREEN);
 	sel.snap = snap;
 	sel.oe.x = sel.ob.x = col;
 	sel.oe.y = sel.ob.y = row + !sel.alt * (histMode ? histOff : insertOff);
@@ -592,10 +592,10 @@ selected(int x, int y)
 		return BETWEEN(y, sel.nb.y, sel.ne.y)
 		    && BETWEEN(x, sel.nb.x, sel.ne.x);
 
-	return ((sel.nb.y > sel.ne.y) ? OUT(y, sel.nb.y, sel.ne.y)
-	                              : BETWEEN(y, sel.nb.y, sel.ne.y)) &&
-	       (y != sel.nb.y || x >= sel.nb.x) &&
-	       (y != sel.ne.y || x <= sel.ne.x);
+	return (   (sel.nb.y > sel.ne.y) ?     OUT(y, sel.nb.y, sel.ne.y)
+	                                 : BETWEEN(y, sel.nb.y, sel.ne.y))
+	    && (y != sel.nb.y || x >= sel.nb.x)
+	    && (y != sel.ne.y || x <= sel.ne.x);
 }
 
 char *
