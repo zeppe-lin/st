@@ -1,4 +1,4 @@
-/* See LICENSE for license details. */
+/* See LICENSE file for copyright and license details. */
 
 #include <stdint.h>
 #include <sys/types.h>
