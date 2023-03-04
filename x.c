@@ -95,10 +95,10 @@ typedef XftGlyphFontSpec GlyphFontSpec;
 /* Purely graphic info */
 typedef struct {
 	int tw, th; /* tty width and height */
-	int w, h; /* window width and height */
-	int ch; /* char height */
-	int cw; /* char width  */
-	int mode; /* window state/mode flags */
+	int w, h;   /* window width and height */
+	int ch;     /* char height */
+	int cw;     /* char width  */
+	int mode;   /* window state/mode flags */
 	int cursor; /* cursor style */
 } TermWindow;
 
@@ -205,28 +205,28 @@ static void run(void);
 static void usage(void);
 
 static void (*handler[LASTEvent])(XEvent *) = {
-	[KeyPress] = kpress,
-	[ClientMessage] = cmessage,
-	[ConfigureNotify] = resize,
+	[KeyPress]         = kpress,
+	[ClientMessage]    = cmessage,
+	[ConfigureNotify]  = resize,
 	[VisibilityNotify] = visibility,
-	[UnmapNotify] = unmap,
-	[Expose] = expose,
-	[FocusIn] = focus,
-	[FocusOut] = focus,
-	[MotionNotify] = bmotion,
-	[ButtonPress] = bpress,
-	[ButtonRelease] = brelease,
+	[UnmapNotify]      = unmap,
+	[Expose]           = expose,
+	[FocusIn]          = focus,
+	[FocusOut]         = focus,
+	[MotionNotify]     = bmotion,
+	[ButtonPress]      = bpress,
+	[ButtonRelease]    = brelease,
 /*
  * Uncomment if you want the selection to disappear when you select something
  * different in another window.
  */
-/*	[SelectionClear] = selclear_, */
-	[SelectionNotify] = selnotify,
+/*	[SelectionClear]   = selclear_, */
+	[SelectionNotify]  = selnotify,
 /*
  * PropertyNotify is only turned on when there is some INCR transfer happening
  * for the selection retrieval.
  */
-	[PropertyNotify] = propnotify,
+	[PropertyNotify]   = propnotify,
 	[SelectionRequest] = selrequest,
 };
 
@@ -498,10 +498,10 @@ bpress(XEvent *e)
 			historyOpToggle(1, 1);
 			tmoveto(evcol(e), evrow(e));
 			if (tripleClick) {
-				if (mouseYank) pressKeys("dVy", 3);
-				if (mouseSelect) pressKeys("dV", 2);
+				if (mouseYank)   pressKeys("dVy", 3);
+				if (mouseSelect) pressKeys("dV",  2);
 			} else if (doubleClick) {
-				if (mouseYank) pressKeys("dyiW", 4);
+				if (mouseYank)   pressKeys("dyiW", 4);
 				if (mouseSelect) {
 					tmoveto(evcol(e), evrow(e));
 					pressKeys("viW", 3);
@@ -509,7 +509,8 @@ bpress(XEvent *e)
 			}
 			historyOpToggle(-1, 1);
 		} else {
-			if (!IS_SET(MODE_NORMAL)) selstart(evcol(e), evrow(e), 0);
+			if (!IS_SET(MODE_NORMAL))
+				selstart(evcol(e), evrow(e), 0);
 			else {
 				historyOpToggle(1, 1);
 				tmoveto(evcol(e), evrow(e));
@@ -530,8 +531,7 @@ propnotify(XEvent *e)
 
 	xpev = &e->xproperty;
 	if (xpev->state == PropertyNewValue &&
-			(xpev->atom == XA_PRIMARY ||
-			 xpev->atom == clipboard)) {
+	   (xpev->atom == XA_PRIMARY || xpev->atom == clipboard)) {
 		selnotify(e);
 	}
 }
@@ -854,16 +854,18 @@ void
 xclear(int x1, int y1, int x2, int y2)
 {
 	XftDrawRect(xw.draw,
-			&dc.col[IS_SET(MODE_REVERSE)? defaultfg : defaultbg],
-			x1, y1, x2-x1, y2-y1);
+	            &dc.col[IS_SET(MODE_REVERSE) ? defaultfg : defaultbg],
+	            x1, y1, x2-x1, y2-y1);
 }
 
 void
 xhints(void)
 {
-	XClassHint class = {opt_name ? opt_name : "st",
-	                    opt_class ? opt_class : "St"};
-	XWMHints wm = {.flags = InputHint, .input = 1};
+	XClassHint class = {
+		opt_name  ? opt_name  : "st",
+	        opt_class ? opt_class : "St"
+	};
+	XWMHints wm = { .flags = InputHint, .input = 1 };
 	XSizeHints *sizeh;
 
 	sizeh = XAllocSizeHints();
@@ -949,7 +951,7 @@ xloadfont(Font *f, FcPattern *pattern)
 		 * slant but gave us one anyway. Try to mitigate.
 		 */
 		if ((XftPatternGetInteger(f->match->pattern, "slant", 0,
-		    &haveattr) != XftResultMatch) || haveattr < wantattr) {
+		     &haveattr) != XftResultMatch) || haveattr < wantattr) {
 			f->badslant = 1;
 			fputs("font slant does not match\n", stderr);
 		}
@@ -958,7 +960,7 @@ xloadfont(Font *f, FcPattern *pattern)
 	if ((XftPatternGetInteger(pattern, "weight", 0, &wantattr) ==
 	    XftResultMatch)) {
 		if ((XftPatternGetInteger(f->match->pattern, "weight", 0,
-		    &haveattr) != XftResultMatch) || haveattr != wantattr) {
+		     &haveattr) != XftResultMatch) || haveattr != wantattr) {
 			f->badweight = 1;
 			fputs("font weight does not match\n", stderr);
 		}
@@ -1002,11 +1004,11 @@ xloadfonts(char *fontstr, double fontsize)
 		FcPatternAddDouble(pattern, FC_PIXEL_SIZE, (double)fontsize);
 		usedfontsize = fontsize;
 	} else {
-		if (FcPatternGetDouble(pattern, FC_PIXEL_SIZE, 0, &fontval) ==
-				FcResultMatch) {
+		if (FcPatternGetDouble(pattern, FC_PIXEL_SIZE, 0, &fontval)
+		    == FcResultMatch) {
 			usedfontsize = fontval;
-		} else if (FcPatternGetDouble(pattern, FC_SIZE, 0, &fontval) ==
-				FcResultMatch) {
+		} else if (FcPatternGetDouble(pattern, FC_SIZE, 0, &fontval)
+		           == FcResultMatch) {
 			usedfontsize = -1;
 		} else {
 			/*
@@ -1031,7 +1033,7 @@ xloadfonts(char *fontstr, double fontsize)
 	}
 
 	/* Setting character width and height. */
-	win.cw = ceilf(dc.font.width * cwscale);
+	win.cw = ceilf(dc.font.width  * cwscale);
 	win.ch = ceilf(dc.font.height * chscale);
 
 	FcPatternDel(pattern, FC_SLANT);
@@ -2163,3 +2165,5 @@ opencopied(const Arg *arg)
 	snprintf(cmd, cmd_size, "%s \"%s\"&", (char *)arg->v, clip);
 	system(cmd);
 }
+
+/* End of file. */
