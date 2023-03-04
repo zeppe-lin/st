@@ -59,7 +59,7 @@ is a simple terminal emulator for X.
 .SH OPTIONS
 .TP
 .B \-a
-disable alternate screens in terminal
+disable alternate screens in terminal.
 .TP
 .BI \-c " class"
 defines the window class (default $TERM).
@@ -95,7 +95,7 @@ defines the window title (default 'st').
 .TP
 .BI \-w " windowid"
 embeds st within the window identified by
-.I windowid
+.IR windowid .
 .TP
 .BI \-l " line"
 use a tty
