@@ -14,13 +14,13 @@ extern unsigned int bg[], fg, currentBg, highlightBg, highlightFg, amountNmKeys;
 typedef struct { int p[3]; } Pos;
 
 typedef enum {
-	visual='v', visualLine='V', yank = 'y'
+	visual = 'v', visualLine = 'V', yank = 'y'
 } Op;
 typedef enum {
-	infix_none=0, infix_i='i', infix_a='a'
+	infix_none = 0, infix_i = 'i', infix_a = 'a'
 } Infix;
 typedef enum {
-	fw='/', bw='?'
+	fw = '/', bw = '?'
 } Search;
 struct NormalModeState {
 	struct OperationState {
@@ -43,9 +43,9 @@ static inline Rune cChar() {
 	return term.line[term.c.y][term.c.x].u;
 }
 static inline int pos(int p, int h) {
-	return IS_SET(MODE_ALTSCREEN) ? p : rangeY(p+h*histOff-insertOff);
+	return IS_SET(MODE_ALTSCREEN) ? p : rangeY(p + h*histOff - insertOff);
 }
-static inline int contains(Rune l, char const * values, size_t const memSize) {
+static inline int contains(Rune l, char const *values, size_t const memSize) {
 	for (uint32_t i = 0; i < memSize; ++i)
 		if (l == values[i])
 			return 1;
@@ -68,7 +68,7 @@ static int highlighted(int x, int y) {
 	int const s = term.row*term.col,
 		i = y*term.col + x,
 		sz = size(&searchStr);
-	return sz && i<s && mark[i]!=sz && i+mark[i]<s && !mark[i+mark[i]];
+	return sz && i<s && mark[i] != sz && i+mark[i]<s && !mark[i+mark[i]];
 }
 static void markSearchMatches(int all) {
 	int sz = size(&searchStr), ox = 0, oy = 0, oi=0;
