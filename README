@@ -44,6 +44,10 @@ BUGS
 	the following command:
 
 		tic -sx st.info
+	
+	Also, by the following Makefile target:
+
+		make terminfo-entry
 
 	See terminfo(5) for additional details.
 
