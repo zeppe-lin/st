@@ -45,7 +45,7 @@ BUGS
 
 		tic -sx st.info
 	
-	Also, by the following Makefile target:
+	Also, by the following make target:
 
 		make terminfo-entry
 
