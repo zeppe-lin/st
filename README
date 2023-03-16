@@ -24,10 +24,10 @@ REQUIREMENTS
 
 		* c99 compiler
 		* POSIX sh(1p), make(1p) and "mandatory utilities"
-		* ncurses is optional, for compiling _terminfo_ entry
 		* libX11
 		* fontconfig
 		* freetype2
+		* ncurses is optional, for compiling terminfo entry
 
 INSTALL
 
