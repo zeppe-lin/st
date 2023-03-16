@@ -37,10 +37,11 @@ INSTALL
 	st can be customized by creating a custom config.h file and
 	(re)compiling the source code.
 
-USAGE
+BUGS
 
-	If you did not install st with "make && make install", you must
-	compile the st terminfo entry with the following command:
+	If you find a program that complains that st is unknown/not
+	recognised/unsupported/etc, try to compile the st terminfo entry with
+	the following command:
 
 		tic -sx st.info
 
