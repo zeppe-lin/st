@@ -34,6 +34,8 @@ install: all
 	mkdir -p   ${DESTDIR}${MANPREFIX}/man1
 	cp -f st   ${DESTDIR}${PREFIX}/bin/
 	cp -f st.1 ${DESTDIR}${MANPREFIX}/man1/st.1
+	chmod 0755 ${DESTDIR}${PREFIX}/bin/st
+	chmod 0644 ${DESTDIR}${MANPREFIX}/man1/st.1
 	
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/st
