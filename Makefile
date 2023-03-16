@@ -25,7 +25,7 @@ ${OBJ}: config.h config.mk
 st: ${OBJ}
 	${LD} ${OBJ} ${LDFLAGS} -o $@
 
-terminfo:
+terminfo-entry:
 	tic -sx st.info
 	@echo See the README file regarding the terminfo entry of st.
 
