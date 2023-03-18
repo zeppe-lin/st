@@ -2650,18 +2650,17 @@ findlastany(const char *str, const char** find, size_t len)
 }
 
 /*
-** Select and copy the previous url on screen (do nothing if there's no url).
-**
-** FIXME: doesn't handle urls that span multiple lines; will need to add support
-**        for multiline "getsel()" first
-*/
-
+ * Select and copy the previous url on screen (do nothing if there's no url).
+ *
+ * FIXME: doesn't handle urls that span multiple lines; will need to add support
+ *        for multiline "getsel()" first
+ */
 void
 copyurl(const Arg *arg) {
-	int row = 0;    // row of current URL
-	int col = 0;    // column of current URL start
-	int colend = 0; // column of last occurrence
-	int passes = 0; // how many rows have been scanned
+	int row = 0;    /* row of current URL              */
+	int col = 0;    /* column of current URL start     */
+	int colend = 0; /* column of last occurrence       */
+	int passes = 0; /* how many rows have been scanned */
 
 	char linestr[term.col + 1];
 	const char *c = NULL;
@@ -2674,13 +2673,13 @@ copyurl(const Arg *arg) {
 	LIMIT(colend, 0, term.col);
 
 	/*
-	** Scan from (term.row - 1,term.col - 1) to (0,0) and find
-	** next occurrance of a URL
-	*/
+	 * Scan from (term.row - 1,term.col - 1) to (0,0) and find
+	 * next occurrance of a URL
+	 */
 	for (passes = 0; passes < term.row; passes++) {
 		/* Read in each column of every row until
-		** we hit previous occurrence of URL
-		*/
+		 * we hit previous occurrence of URL
+		 */
 		for (col = 0; col < colend; ++col)
 			linestr[col] = term.line[row][col].u < 128 ? term.line[row][col].u : ' ';
 		linestr[col] = '\0';

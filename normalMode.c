@@ -1,5 +1,5 @@
-// This file is part of vimbrowse patch.
-// See LICENSE file for copyright and license details.
+/* This file is part of vimbrowse patch.
+ * See LICENSE file for copyright and license details. */
 
 #include <X11/keysym.h>
 #include <X11/XKBlib.h>
@@ -14,13 +14,18 @@ extern unsigned int bg[], fg, currentBg, highlightBg, highlightFg, amountNmKeys;
 typedef struct { int p[3]; } Pos;
 
 typedef enum {
-	visual = 'v', visualLine = 'V', yank = 'y'
+	visual = 'v',
+	visualLine = 'V',
+	yank = 'y'
 } Op;
 typedef enum {
-	infix_none = 0, infix_i = 'i', infix_a = 'a'
+	infix_none = 0,
+	infix_i = 'i',
+	infix_a = 'a'
 } Infix;
 typedef enum {
-	fw = '/', bw = '?'
+	fw = '/',
+	bw = '?'
 } Search;
 struct NormalModeState {
 	struct OperationState {
@@ -374,4 +379,4 @@ void historyPreDraw() {
 	historyOpToggle(-1, 0);
 }
 
-// End of file.
+/* End of file. */

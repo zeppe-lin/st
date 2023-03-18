@@ -1,4 +1,4 @@
-// See LICENSE file for copyright and license details.
+/* See LICENSE file for copyright and license details. */
 
 enum win_mode {
 	MODE_VISIBLE     = 1 << 0,
@@ -38,4 +38,4 @@ void xsetsel(char *);
 int xstartdraw(void);
 void xximspot(int, int);
 
-// End of file.
+/* End of file. */

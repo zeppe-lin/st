@@ -1,8 +1,10 @@
-// This file is part of vimbrowse patch.
-// See LICENSE file for copyright and license details.
+/* This file is part of vimbrowse patch.
+ * See LICENSE file for copyright and license details. */
 
-// Dynamic memory-chunk, with (1) datatype size,
-// (2/3) initialized / allocated chunk, (4) content
+/*
+ * Dynamic memory-chunk, with (1) datatype size,
+ * (2/3) initialized / allocated chunk, (4) content.
+ */
 typedef struct {
 	uint8_t const elSize;
 	uint32_t init, alloc;
@@ -50,4 +52,4 @@ static inline void assign(DynamicArray* s, DynamicArray const *o) {
 		memcpy(s->content, o->content, (s->init=o->init));
 }
 
-// End of file.
+/* End of file. */
