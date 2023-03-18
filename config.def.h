@@ -1,94 +1,101 @@
-// See LICENSE file for copyright and license details.
+/* See LICENSE file for copyright and license details. */
 
-//////////////////////////////////////////////////////////////////////
-// Appearance.                                                      //
-//////////////////////////////////////////////////////////////////////
+/*********************************************************************
+ * Appearance.
+ */
 
-// Font.
-// See http://freedesktop.org/software/fontconfig/fontconfig-user.html
-//
-// Can be redefined in ~/.Xresources:
-//   st.font: Sans Mono:pixelsize=12:antialias=true:autohint=true
-//
+/* Font.
+ * See http://freedesktop.org/software/fontconfig/fontconfig-user.html
+ *
+ * Can be redefined in ~/.Xresources:
+ *    st.font: Sans Mono:pixelsize=12:antialias=true:autohint=true
+ */
 static char *font = "Sans Mono:pixelsize=12:antialias=true:autohint=true";
 static int borderpx = 2;
 
-// What program is execed by st depends of these precedence rules:
-// 1: program passed with -e
-// 2: scroll and/or utmp
-// 3: SHELL environment variable
-// 4: value of shell in /etc/passwd
-// 5: value of shell in config.h
+/* What program is execed by st depends of these precedence rules:
+ * 1: program passed with -e
+ * 2: scroll and/or utmp
+ * 3: SHELL environment variable
+ * 4: value of shell in /etc/passwd
+ * 5: value of shell in config.h
+ */
 static char *shell = "/bin/sh";
 char *utmp = NULL;
 
-// Scroll program: to enable use a string like "scroll".
+/* Scroll program: to enable use a string like "scroll". */
 char *scroll = NULL;
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
-// Identification sequence returned in DA and DECID.
+/* Identification sequence returned in DA and DECID. */
 char *vtiden = "\033[?6c";
 
-// Kerning / character bounding-box multipliers.
+/* Kerning / character bounding-box multipliers. */
 static float cwscale = 1.0;
 static float chscale = 1.0;
 
-// Word delimiter string.
-// More advanced example: L" `'\"()[]{}"
+/* Word delimiter string.
+ * More advanced example: L" `'\"()[]{}"
+ */
 wchar_t *worddelimiters = L" ";
 
-// Selection timeouts (in milliseconds).
+/* Selection timeouts (in milliseconds). */
 static unsigned int doubleclicktimeout = 300;
 static unsigned int tripleclicktimeout = 600;
 
-// Alt screens.
+/* Alt screens. */
 int allowaltscreen = 1;
 
-// Allow certain non-interactive (insecure) window operations such as:
-// setting the clipboard text.
+/* Allow certain non-interactive (insecure) window operations such as:
+ * setting the clipboard text.
+ */
 int allowwindowops = 0;
 
-// Draw latency range in ms - from new content/keypress/etc until
-// drawing.  Within this range, st draws when content stops arriving
-// (idle).  Mostly it's near minlatency, but it waits longer for slow
-// updates to avoid partial draw.  Low minlatency will tear/flicker
-// more, as it can "detect" idle too early.
+/* Draw latency range in ms - from new content/keypress/etc until
+ * drawing.  Within this range, st draws when content stops arriving
+ * (idle).  Mostly it's near minlatency, but it waits longer for slow
+ * updates to avoid partial draw.  Low minlatency will tear/flicker
+ * more, as it can "detect" idle too early.
+ */
 static double minlatency = 8;
 static double maxlatency = 33;
 
-// Blinking timeout (set to 0 to disable blinking) for the terminal
-// blinking attribute.
+/* Blinking timeout (set to 0 to disable blinking) for the terminal
+ * blinking attribute.
+ */
 static unsigned int blinktimeout = 800;
 
-// Thickness of underline and bar cursors.
+/* Thickness of underline and bar cursors. */
 static unsigned int cursorthickness = 2;
 
-// Bell volume.  It must be a value between -100 and 100.
-// Use 0 for disabling it.
+/* Bell volume.  It must be a value between -100 and 100.
+ * Use 0 for disabling it.
+ */
 static int bellvolume = 0;
 
-// Default TERM value.
+/* Default TERM value. */
 char *termname = "st-256color";
 
-// Spaces per tab.
-//
-// When you are changing this value, don't forget to adapt the »it«
-// value in the st.info and appropriately install the st.info in the
-// environment where you use this st version.
-//
-//  it#$tabspaces,
-//
-// Secondly make sure your kernel is not expanding tabs.  When running
-// `stty -a` »tab0« should appear.  You can tell the terminal to not
-// expand tabs by running following command:
-//
-//  stty tabs
-//
+/* Spaces per tab.
+ *
+ * When you are changing this value, don't forget to adapt the »it«
+ * value in the st.info and appropriately install the st.info in the
+ * environment where you use this st version.
+ *
+ *    it#$tabspaces,
+ *
+ * Secondly make sure your kernel is not expanding tabs.  When running
+ * `stty -a` »tab0« should appear.  You can tell the terminal to not
+ * expand tabs by running following command:
+ *
+ *    stty tabs
+ */
 unsigned int tabspaces = 8;
 
-// Terminal colors (16 first used in escape sequence).
+/* Terminal colors (16 first used in escape sequence).
+ */
 static const char *colorname[] = {
-  // 8 normal colors.
+  /* 8 normal colors. */
   "black",
   "red3",
   "green3",
@@ -98,7 +105,7 @@ static const char *colorname[] = {
   "cyan3",
   "gray90",
 
-  // 8 bright colors.
+  /* 8 bright colors. */
   "gray50",
   "red",
   "green",
@@ -110,46 +117,50 @@ static const char *colorname[] = {
 
   [255] = 0,
 
-  // More colors can be added after 255 to use with DefaultXX.
+  /* More colors can be added after 255 to use with DefaultXX. */
   "#cccccc",
   "#555555",
   "gray90",
   "black"
 };
 
-// Default colors (colorname index).
-unsigned int defaultfg = 258;         // foreground color
-unsigned int defaultbg = 259;         // background color
-static unsigned int defaultcs = 256;  // cursor color
-static unsigned int defaultrcs = 257; // reverse cursor color
+/* Default colors (colorname index).
+ */
+unsigned int defaultfg = 258;          /* foreground color     */
+unsigned int defaultbg = 259;          /* background color     */
+static unsigned int defaultcs = 256;   /* cursor color         */
+static unsigned int defaultrcs = 257;  /* reverse cursor color */
 
-//////////////////////////////////////////////////////////////////////
-// [VimBrowse] settings and appearance.                             //
-//////////////////////////////////////////////////////////////////////
+/*********************************************************************
+ * [VimBrowse] settings and appearance.
+ */
 
-// Background color (colorname index) used in order to highlight the
-// current history cursor via a cross.
+/* Background color (colorname index) used in order to highlight the
+ * current history cursor via a cross.
+ */
 unsigned int const currentBg = 234;
 
-// Size of the buffer history in lines.
+/* Size of the buffer history in lines. */
 unsigned int const buffSize = 2048;
 
-// Enable double / triple click yanking / selection of word / line.
+/* Enable double / triple click yanking / selection of word / line. */
 int const mouseYank = 1, mouseSelect = 0;
 
-// Background / Foreground colors for search results currently on
-// screen.
+/* Background / Foreground colors for search results currently on
+ * screen.
+ */
 unsigned int const highlightBg = 160, highlightFg = 15;
 
-// Word delimiter symbols.
+/* Word delimiter symbols. */
 char const wDelS[] = "!\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~";
-// Word delimiter letters.
+/* Word delimiter letters. */
 char const wDelL[] = " \t";
 
-// Shortcuts executed in normal mode.
-// custom commands (= sequence of operations/motion), the first
-// character is a key to be used in order to execute the sequence of
-// operations/motions.
+/* Shortcuts executed in normal mode.
+ * custom commands (= sequence of operations/motion), the first
+ * character is a key to be used in order to execute the sequence of
+ * operations/motions.
+ */
 char *nmKeys[] = {
   "R/Building\nN",
   "r/Building\n",
@@ -162,75 +173,84 @@ char *nmKeys[] = {
 };
 unsigned int const amountNmKeys = sizeof(nmKeys) / sizeof(*nmKeys);
 
-// Style of the search string overlay (shown in the right corner).
+/* Style of the search string overlay (shown in the right corner). */
 Glyph styleSearch = {' ', ATTR_ITALIC | ATTR_BOLD_FAINT, 7, 16};
 
-// Styles of the command string overlay (shown in the right corner)
-// depending on the currently active operation.
+/* Styles of the command string overlay (shown in the right corner)
+ * depending on the currently active operation.
+ */
 Glyph style[] = {
-  // Yank operation.
+  /* Yank operation. */
   {' ', ATTR_ITALIC|ATTR_FAINT, 15, 16},
 
-  // Visual operation.
+  /* Visual operation. */
   {' ', ATTR_ITALIC, 232, 11},
 
-  // VisualLine operation.
+  /* VisualLine operation. */
   {' ', ATTR_ITALIC, 232, 4},
 
-  // No operation.
+  /* No operation. */
   {' ', ATTR_ITALIC, 232, 12}
 };
 
-// End of [Vim Browse] settings and appearance.
+/* End of [Vim Browse] settings and appearance. */
 
-//////////////////////////////////////////////////////////////////////
-// [CopyUrl] settings.                                              //
-//////////////////////////////////////////////////////////////////////
+/*********************************************************************
+ * [CopyUrl] settings.
+ */
 
-// URL allowed symbols.
-// () and [] can appear in urls, but excluding them here will reduce
-// false positives when figuring out where a given url ends.
+/* URL allowed symbols.
+ * () and [] can appear in urls, but excluding them here will reduce
+ * false positives when figuring out where a given url ends.
+ */
 const char URLChars[] =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   "abcdefghijklmnopqrstuvwxyz"
   "0123456789-._~:/?#@!$&'*+,;=%";
 
-// URL allowed schemes.
+/* URL allowed schemes. */
 const char* URLStrings[] = {
   "http://", "https://", "file://"
 };
 unsigned int const amountURLStrings =
   sizeof(URLStrings) / sizeof(*URLStrings);
 
-// End of [CopyUrl] settings.
+/* End of [CopyUrl] settings. */
 
-//////////////////////////////////////////////////////////////////////
-// Default shape of cursor.
-// 2: Block ("█")
-// 4: Underline ("_")
-// 6: Bar ("|")
-// 7: Snowman ("☃")
+/*********************************************************************
+ * Other settings.
+ */
+
+/*
+ * Default shape of cursor.
+ * 2: Block ("█")
+ * 4: Underline ("_")
+ * 6: Bar ("|")
+ * 7: Snowman ("☃")
+ */
 static unsigned int cursorshape = 2;
 
-// Default columns and rows numbers.
+/* Default columns and rows numbers. */
 static unsigned int cols = 80;
 static unsigned int rows = 24;
 
-// Default colour and shape of the mouse cursor.
+/* Default colour and shape of the mouse cursor. */
 static unsigned int mouseshape = XC_xterm;
 static unsigned int mousefg = 7;
 static unsigned int mousebg = 0;
 
-// Color used to display font attributes when fontconfig selected a
-// font which doesn't match the ones requested.
+/* Color used to display font attributes when fontconfig selected a
+ * font which doesn't match the ones requested.
+ */
 static unsigned int defaultattr = 11;
 
-// Force mouse select/shortcuts while mask is active (when MODE_MOUSE
-// is set).  Note that if you want to use ShiftMask with selmasks, set
-// this to an other modifier, set to 0 to not use it.
+/* Force mouse select/shortcuts while mask is active (when MODE_MOUSE
+ * is set).  Note that if you want to use ShiftMask with selmasks, set
+ * this to an other modifier, set to 0 to not use it.
+ */
 static uint forcemousemod = ShiftMask;
 
-// Xresources preferences to load at startup.
+/* Xresources preferences to load at startup. */
 ResourcePref resources[] = {
   { "font",         STRING,  &font },
   { "color0",       STRING,  &colorname[0] },
@@ -264,25 +284,28 @@ ResourcePref resources[] = {
   { "chscale",      FLOAT,   &chscale },
 };
 
-// Internal mouse shortcuts.
-// Beware that overloading Button1 will disable the selection.
+/* Internal mouse shortcuts.
+ * Beware that overloading Button1 will disable the selection.
+ */
 static MouseShortcut mshortcuts[] = {
-//  Mask                  Button   Function        Argument       Release
+/*  Mask                  Button   Function        Argument       Release
+ */
   { XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
-  /*
+#if 0
   { ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
   { XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
   { ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
   { XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
-  */
+#endif
 };
 
-// Internal keyboard shortcuts.
+/* Internal keyboard shortcuts. */
 #define MODKEY Mod1Mask
 #define TERMMOD (ControlMask|ShiftMask)
 
 static Shortcut shortcuts[] = {
-//  Mask                  Keysym          Function        Argument
+/*  Mask                  Keysym          Function        Argument
+ */
   { XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
   { ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
   { ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
@@ -300,38 +323,46 @@ static Shortcut shortcuts[] = {
   { MODKEY,               XK_o,           opencopied,     {.v = "xdg-open"} },
 };
 
-// Special keys (change & recompile st.info accordingly)
-//
-// Mask value:
-// * Use XK_ANY_MOD to match the key no matter modifiers state
-// * Use XK_NO_MOD to match the key alone (no modifiers)
-// appkey value:
-// * 0: no value
-// * > 0: keypad application mode enabled
-// *   = 2: term.numlock = 1
-// * < 0: keypad application mode disabled
-// appcursor value:
-// * 0: no value
-// * > 0: cursor application mode enabled
-// * < 0: cursor application mode disabled
-//
-// Be careful with the order of the definitions because st searches in
-// this table sequentially, so any XK_ANY_MOD must be in the last
-// position for a key.
+/*
+ * Special keys (change & recompile st.info accordingly)
+ *
+ * Mask value:
+ *  - Use XK_ANY_MOD to match the key no matter modifiers state
+ *  - Use XK_NO_MOD to match the key alone (no modifiers)
+ *
+ * appkey value:
+ *    0: no value
+ *  > 0: keypad application mode enabled
+ *  = 2: term.numlock = 1
+ *  < 0: keypad application mode disabled
+ *
+ *  appcursor value:
+ *    0: no value
+ *  > 0: cursor application mode enabled
+ *  < 0: cursor application mode disabled
+ *
+ * Be careful with the order of the definitions because st searches in
+ * this table sequentially, so any XK_ANY_MOD must be in the last
+ * position for a key.
+ */
 
-// If you want keys other than the X11 function keys (0xFD00 - 0xFFFF)
-// to be mapped below, add them to this array.
+/* If you want keys other than the X11 function keys (0xFD00 - 0xFFFF)
+ * to be mapped below, add them to this array.
+ */
 static KeySym mappedkeys[] = { -1 };
 
-// State bits to ignore when matching key or button events.  By
-// default, numlock (Mod2Mask) and keyboard layout (XK_SWITCH_MOD) are
-// ignored.
+/* State bits to ignore when matching key or button events.  By
+ * default, numlock (Mod2Mask) and keyboard layout (XK_SWITCH_MOD) are
+ * ignored.
+ */
 static uint ignoremod = Mod2Mask|XK_SWITCH_MOD;
 
-// This is the huge key array which defines all compatibility to the
-// Linux world.  Please decide about changes wisely.
+/* This is the huge key array which defines all compatibility to the
+ * Linux world.  Please decide about changes wisely.
+ */
 static Key key[] = {
-//  Keysym            Mask            String      Appkey    Appcursor
+/*  Keysym            Mask            String      Appkey    Appcursor
+ */
   { XK_KP_Home,       ShiftMask,      "\033[2J",       0,   -1},
   { XK_KP_Home,       ShiftMask,      "\033[1;2H",     0,   +1},
   { XK_KP_Home,       XK_ANY_MOD,     "\033[H",        0,   -1},
@@ -543,21 +574,23 @@ static Key key[] = {
   { XK_F35,           XK_NO_MOD,      "\033[23;5~",    0,    0},
 };
 
-// Selection types' masks.
-// Use the same masks as usual.
-// Button1Mask is always unset, to make masks match between
-// ButtonPress, ButtonRelease and MotionNotify.
-// If no match is found, regular selection is used.
+/* Selection types' masks.
+ * Use the same masks as usual.
+ * Button1Mask is always unset, to make masks match between
+ * ButtonPress, ButtonRelease and MotionNotify.
+ * If no match is found, regular selection is used.
+ */
 static uint selmasks[] = {
   [SEL_RECTANGULAR] = Mod1Mask,
 };
 
-// Printable characters in ASCII, used to estimate the advance width
-// of single wide characters.
+/* Printable characters in ASCII, used to estimate the advance width
+ * of single wide characters.
+ */
 static char ascii_printable[] =
   " !\"#$%&'()*+,-./0123456789:;<=>?"
   "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
   "`abcdefghijklmnopqrstuvwxyz{|}~";
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
-// End of file.
+/* vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+ * End of file. */
