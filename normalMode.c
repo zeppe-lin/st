@@ -1,7 +1,9 @@
 /* This file is part of vimbrowse patch.
  * See LICENSE file for copyright and license details. */
 
+/* xorgproto */
 #include <X11/keysym.h>
+/* libX11 */
 #include <X11/XKBlib.h>
 
 #include "normalMode.h"
@@ -68,7 +70,10 @@ static inline void applyPos(Pos p) {
 	if (!IS_SET(MODE_ALTSCREEN) && histOp)
 		term.line = &buf[histOff = p.p[2]];
 }
-// Find string in history buffer, and provide string-match-lookup for highlighting matches
+/*
+ * Find string in history buffer, and provide string-match-lookup for
+ * highlighting matches.
+ */
 static int highlighted(int x, int y) {
 	int const s = term.row*term.col,
 		i = y*term.col + x,
@@ -111,7 +116,10 @@ static int findString(int s, int all) {
 	markSearchMatches(all);
 	return wIdx == strSz;
 }
-// Execute series of normal-mode commands from char array / decoded from dynamic array
+/*
+ * Execute series of normal-mode commands from char array / decoded from
+ * dynamic array.
+ */
 ExitState pressKeys(char const* s, size_t e) {
 	ExitState x=success;
 	for (size_t i=0; i<e && (x = (!s[i] ? x : kPressHist(&s[i], 1, 0, NULL))); ++i);
@@ -123,15 +131,22 @@ static ExitState executeCommand(uint32_t *cs, size_t z) {
 	for (size_t i=0; i<z && (x = kPressHist(dc, utf8encode(cs[i],dc), 0, NULL)); ++i);
 	return x;
 }
-// Get character for overlay, if the overlay (st) has something to show, else normal char.
+/*
+ * Get character for overlay, if the overlay (st) has something to show, else
+ * normal char.
+ */
 static void getChar(DynamicArray *st, Glyph *glyphChange, int y, int xEnd, int width, int x) {
 	if (x < xEnd - min(min(width,xEnd), size(st)))
 		*glyphChange = term.line[y][x];
 	else if (x < xEnd)
 		glyphChange->u = *((Rune*)(st->content + (size(st)+x-xEnd)*st->elSize));
 }
-/// Expand "infix" expression: for instance (w =>)       l     b     |   | v     e    |   | y
-static ExitState expandExpression(char l) { //    ({ =>)       l  ?  {  \n | l | v  /  } \n | h | y
+/*
+ * Expand "infix" expression:
+ * for instance (w =>)       l     b     |   | v     e    |   | y
+ */
+static ExitState expandExpression(char l) {
+	/*    ({ =>)       l  ?  {  \n | l | v  /  } \n | h | y */
 	int a=state.cmd.infix==infix_a, yank=state.cmd.op=='y', lc=tolower(l), found=1;
 	state.cmd.infix = infix_none;
 	if(!yank && state.cmd.op!=visual && state.cmd.op!=visualLine) return failed;
@@ -179,14 +194,26 @@ ExitState executeMotion(char const cs, KeySym const *const ks) {
 		int const low=cs<=90, off=tolower(cs)!='w', sgn=(tolower(cs)=='b')?-1:1;
 		size_t const l=strlen(wDelL), s=strlen(wDelS), maxIt=rows()*term.col;
 		for (int it=0, on=0; state.m.c > 0 && it < maxIt; ++it) {
-		    // If an offset is to be performed in beginning or not in beginning, move in history.
+			/*
+			 * If an offset is to be performed in beginning or not
+			 * in beginning, move in history.
+			 */
 			if ((off || it) && historyMove(sgn, 0, 0)) break;
-			// Determine if the category of the current letter changed since last iteration.
+			/*
+			 * Determine if the category of the current letter
+			 * changed since last iteration.
+			 */
 			int n = 1<<(contains(cChar(),wDelS,s) ?(2-low) :!contains(cChar(),wDelL,l)),
 			    found = (on|=n)^n && ((off ?on^n :n)!=1);
-			// If a reverse offset is to be performed and this is the last letter:
+			/*
+			 * If a reverse offset is to be performed and this is
+			 * the last letter:
+			 */
 			if (found && off) historyMove(-sgn, 0, 0);
-			// Terminate iteration: reset #it and old n value #on and decrease operation count:
+			/*
+			 * Terminate iteration: reset #it and old n value #on
+			 * and decrease operation count:
+			 */
 			if (found) it=-1, on=0, --state.m.c;
 		}
 	} else return failed;
@@ -286,22 +313,29 @@ ExitState kPressHist(char const *cs, size_t len, int ctrl, KeySym const *kSym) {
 			    failed != (result = pressKeys(&nmKeys[i][1], strlen(nmKeys[i])-1)))
 				goto end;
 	}
-	// Operation/Motion finished if valid: update cmd string, extend selection, update search
+	/*
+	 * Operation/Motion finished if valid: update cmd string, extend
+	 * selection, update search.
+	 */
 	if (result != failed) {
 		if (len == 1 && !ctrl)
 			decodeTo(cs, len, &cCmd);
 		if ((state.cmd.op == visualLine) || ((state.cmd.op == yank) && (result == exitOp))) {
-			int const off = term.c.y + (IS_SET(MODE_ALTSCREEN) ? 0 : histOff) < sel.ob.y; //< Selection start below end.
+			int const off = term.c.y + (IS_SET(MODE_ALTSCREEN) ? 0 : histOff) < sel.ob.y; /*< Selection start below end. */
 			sel.ob.x = off ? term.col - 1 : 0;
 			selextend(off ? 0 : term.col-1, term.c.y, sel.type, 0);
 		} else if (sel.oe.x != -1) {
 			selextend(term.c.x, term.c.y, sel.type, 0);
 		}
 	}
-	// Set repaint for motion or status bar
+	/*
+	 * Set repaint for motion or status bar.
+	 */
 	if (!IS_SET(MODE_ALTSCREEN) && prevYOff != histOff)
 		tfulldirt();
-	// Terminate Motion / operation if thus indicated
+	/*
+	 * Terminate Motion / operation if thus indicated.
+	 */
 	if (result == exitMotion) {
 		if (!state.m.active)
 			result = (exited=noOp) ? finish : exitOp;
@@ -318,7 +352,9 @@ ExitState kPressHist(char const *cs, size_t len, int ctrl, KeySym const *kSym) {
 			assign(&lCmd, &cCmd);
 		empty(&cCmd);
 	}
-	// Update the content displayed in the history overlay
+	/*
+	 * Update the content displayed in the history overlay.
+	 */
 	styleCmd = style[state.cmd.op==yank ? 1 : (state.cmd.op==visual ? 2 :
 	                (state.cmd.op==visualLine ? 3 :0))];
 	int const posLin = !IS_SET(MODE_ALTSCREEN) ? rangeY(insertOff-histOff):0, h = rows() - term.row;
@@ -363,17 +399,23 @@ void historyOverlay(int x, int y, Glyph* g) {
 void historyPreDraw() {
 	static Pos op = { .p = { 0, 0, 0 } };
 	historyOpToggle(1, 0);
-	// Draw the cursor cross if changed
+	/*
+	 * Draw the cursor cross if changed.
+	 */
 	if (term.c.y >= term.row || op.p[1] >= term.row)
 		tfulldirt();
 	else if (exited || (op.p[1] != term.c.y))
 		term.dirty[term.c.y] = term.dirty[op.p[1]] = 1;
-	for (int i = 0; (exited || term.c.x != op.p[0]) && i<term.row; ++i)
+	for (int i = 0; (exited || term.c.x != op.p[0]) && i<term.row; ++i) {
 		if (!term.dirty[i]) {
 			xdrawline(term.line[i], term.c.x, i, term.c.x + 1);
 			xdrawline(term.line[i], op.p[0], i, op.p[0] + 1);
 		}
-	// Update search results either only for lines with new content or all results if exiting
+	}
+	/*
+	 * Update search results either only for lines with new content or all
+	 * results if exiting.
+	 */
 	markSearchMatches(exited);
 	op = (Pos){ .p = { term.c.x, term.c.y, 0 } };
 	historyOpToggle(-1, 0);
