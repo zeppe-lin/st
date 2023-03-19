@@ -13,6 +13,8 @@ OVERVIEW
 		* vim browse
 		* xresources
 
+	See git log for further differences.
+
 	The original sources can be downloaded from:
 	1. https://git.suckless.org/st                 (git)
 	2. https://dl.suckless.org/st/st-0.8.4.tar.gz  (tarball)
