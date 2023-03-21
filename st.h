@@ -3,7 +3,9 @@
 #include <stdint.h>
 #include <sys/types.h>
 
-/* macros */
+/*
+ * Macros
+ */
 #define MIN(a, b)		((a) < (b) ? (a) : (b))
 #define MAX(a, b)		((a) < (b) ? (b) : (a))
 #define LEN(a)			(sizeof(a) / sizeof(a)[0])
@@ -21,6 +23,9 @@
 #define TRUECOLOR(r,g,b)	(1 << 24 | (r) << 16 | (g) << 8 | (b))
 #define IS_TRUECOL(x)		(1 << 24 & (x))
 
+/*
+ * Enums
+ */
 enum glyph_attribute {
 	ATTR_NULL       = 0,
 	ATTR_BOLD       = 1 << 0,
@@ -53,19 +58,19 @@ enum selection_snap {
 	SNAP_LINE = 2
 };
 
-typedef unsigned char uchar;
-typedef unsigned int uint;
-typedef unsigned long ulong;
+typedef unsigned char  uchar;
+typedef unsigned int   uint;
+typedef unsigned long  ulong;
 typedef unsigned short ushort;
 
 typedef uint_least32_t Rune;
 
 #define Glyph Glyph_
 typedef struct {
-	Rune u;           /* character code */
-	ushort mode;      /* attribute flags */
-	uint32_t fg;      /* foreground  */
-	uint32_t bg;      /* background  */
+	Rune u;       /* character code  */
+	ushort mode;  /* attribute flags */
+	uint32_t fg;  /* foreground      */
+	uint32_t bg;  /* background      */
 } Glyph;
 
 typedef Glyph *Line;
@@ -78,6 +83,9 @@ typedef union {
 	const char *s;
 } Arg;
 
+/*
+ * Function declarations
+ */
 void die(const char *, ...);
 void redraw(void);
 void draw(void);
@@ -115,7 +123,9 @@ void *xmalloc(size_t);
 void *xrealloc(void *, size_t);
 char *xstrdup(char *);
 
-/* config.h globals */
+/*
+ * config.h globals
+ */
 extern char *utmp;
 extern char *scroll;
 extern char *stty_args;
@@ -128,7 +138,11 @@ extern unsigned int tabspaces;
 extern unsigned int defaultfg;
 extern unsigned int defaultbg;
 
-// copyurl
+/*
+ * copyurl
+ */
 extern const char URLChars[];
 extern const char* URLStrings[];
 extern unsigned int const amountURLStrings;
+
+/* End of file. */
