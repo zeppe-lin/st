@@ -43,5 +43,9 @@ uninstall:
 
 clean:
 	rm -f st st.1 ${OBJ}
+	rm -f ${DIST}.tar.gz
 
-.PHONY: all install uninstall clean
+dist: clean
+	git archive --format=tar.gz -o ${DIST}.tar.gz --prefix=${DIST}/ HEAD
+
+.PHONY: all install uninstall clean dist

@@ -1,5 +1,7 @@
-# st version
+# project metadata
+NAME    = st
 VERSION = 0.8.4zpln
+DIST    = ${NAME}-${VERSION}
 
 # paths
 PREFIX    = /usr/local
