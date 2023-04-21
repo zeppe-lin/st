@@ -1,6 +1,6 @@
 # project metadata
 NAME    = st
-VERSION = 0.8.4zpln
+VERSION = 0.8.4z1
 DIST    = ${NAME}-${VERSION}
 
 # paths
