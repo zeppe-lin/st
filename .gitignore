@@ -1,7 +1,15 @@
-# build artefacts
-config.h
+# build files and artefacts
+*.1
 *.o
 st
+config.h
 
-# vim undo
+# vim undo and swap files
 .*.un~
+*.swp
+
+# backup files
+*.bak
+
+# dist tarballs
+*.tar.gz
