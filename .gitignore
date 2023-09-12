@@ -1,5 +1,4 @@
 # build files and artefacts
-*.1
 *.o
 st
 config.h
