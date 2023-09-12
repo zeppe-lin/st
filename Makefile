@@ -5,16 +5,13 @@ include config.mk
 SRC = st.c x.c
 OBJ = $(SRC:.c=.o)
 
-all: st st.1
+all: st
 
 .c.o:
 	${CC} ${CFLAGS} ${CPPFLAGS} -c $<
 
 config.h:
 	cp config.def.h config.h
-
-st.1:
-	sed "s/@VERSION@/${VERSION}/g" st.1.in > $@
 
 st.o: config.h st.h win.h normalMode.h normalMode.c utils.h
 
