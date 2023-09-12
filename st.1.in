@@ -312,8 +312,8 @@ config.def.h combining the aforementioned commands.
 
 .SH CUSTOMIZATION
 .B st
-can be customized by creating a custom config.h and (re)compiling the
-source code.  This keeps it fast, secure and simple.
+can be customized by creating a custom config.h file and (re)compiling
+the source code.  This keeps it fast, secure and simple.
 
 .SH AUTHORS
 See the LICENSE file for the authors.
