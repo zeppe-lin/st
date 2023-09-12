@@ -39,7 +39,7 @@ uninstall:
 	rm -f ${DESTDIR}${MANPREFIX}/man1/st.1
 
 clean:
-	rm -f st st.1 ${OBJ}
+	rm -f st ${OBJ}
 	rm -f ${DIST}.tar.gz
 
 dist: clean
