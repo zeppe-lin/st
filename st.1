@@ -1,0 +1,382 @@
+.\" st(1) manual page
+.\" See LICENSE file for copyright and license details.
+.Dd September 12, 2023
+.Dt ST 1
+.Os
+.\" ==================================================================
+.Sh NAME
+.Nm st
+.Nd simple terminal emulator for X
+.\" ==================================================================
+.Sh SYNOPSIS
+.Nm
+.Op Fl aiv
+.Op Fl c Ar class
+.Op Fl f Ar font
+.Op Fl g Ar geometry
+.Op Fl n Ar name
+.Op Fl o Ar iofile
+.Op Fl T Ar title
+.Op Fl t Ar title
+.Op Fl l Ar line
+.Op Fl w Ar windowid
+.Oo
+.Op Fl e Ar command
+.Op Ar arguments ...
+.Oc
+.Nm
+.Op Fl aiv
+.Op Fl c Ar class
+.Op Fl f Ar font
+.Op Fl g Ar geometry
+.Op Fl n Ar name
+.Op Fl o Ar iofile
+.Op Fl T Ar title
+.Op Fl t Ar title
+.Op Fl w Ar windowid
+.Fl l Ar line
+.Op Ar stty_args ...
+.\" ==================================================================
+.Sh DESCRIPTION
+.Nm
+is a simple terminal emulator for X.
+.\" *** Options description: ***
+.Pp
+The options are as follows:
+.Pp
+.Bl -tag -width Ds -compact
+.\" *** -a
+.It Fl a
+Disable alternate screens in terminal.
+.\" *** -c class
+.Pp
+.It Fl c Ar class
+Define the window class (default $TERM).
+.\" *** -f font
+.Pp
+.It Fl f Ar font
+Define the
+.Ar font
+to use when
+.Nm
+is run.
+.\" *** -g geometry
+.Pp
+.It Fl g Ar geometry
+Define the X11 geometry string.
+The form is
+.Dq [=][<cols>{xX}<rows>][{+-}<xoffset>{+-}<yoffset>] .
+See
+.Xr XParseGeometry 3
+for further details.
+.\" *** -i
+.Pp
+.It Fl i
+Fixate the position given with the
+.Fl g
+option.
+.\" *** -n name
+.Pp
+.It Fl n Ar name
+Define the window instance name (default $TERM).
+.\" *** -o iofile
+.Pp
+.It Fl o Ar iofile
+Write all the I/O to
+.Ar iofile .
+This feature is useful when recording
+.Nm
+sessions.
+A value of
+.Ql \&-
+means standard output.
+.\" *** -T title
+.Pp
+.It Fl T Ar title
+.It Fl t Ar title
+Define the window title
+.Pq Ql st .
+.\" *** -w windowid
+Embed
+.Nm
+within the window identified by
+.Ar windowid .
+.\" *** -l line
+.Pp
+.It Fl l Ar line
+Use a tty
+.Ar line
+instead of a pseudo terminal.
+.Ar line
+should be a (pseudo-)serial device (e.g. /dev/ttyS0 on Linux for
+serial port 0).
+When this flag is given remaining arguments are used as flags for
+.Xr stty 1 .
+By default
+.Nm
+initializes the serial line to 8 bits, no parity, 1 stop bit and a
+38400 baud rate.
+The speed is set by appending it as last argument
+.Po
+.Ql st -l /dev/ttyS0 115200
+.Pc .
+Arguments before the last one are
+.Xr stty 1
+flags.
+If you want to set odd parity on 115200 baud use for example
+.Ql st -l /dev/ttyS0 parenb parodd 115200 .
+Set the number of bits by using for example
+.Ql st -l /dev/ttyS0 cs7 115200 .
+See
+.Xr stty 1
+for more arguments and cases.
+.\" *** -v
+.Pp
+.It Fl v
+Print version information to stderr, then exits.
+.\" *** -e command [arguments ...]
+.Pp
+.It Fl e Ar command Op arguments ...
+Execute
+.Ar command
+instead of the shell.
+If this is used it
+.Sy must be the last option
+on the command line, as in xterm / rxvt.
+This option is only intended for compatibility, and all the remaining
+arguments are used as a command even without it.
+.El
+.\" ==================================================================
+.Ss Shortcuts
+.\" *** Shortcuts description: ***
+.Bl -tag -width Ds
+.\" Break
+.It Sy Break
+Send a break in the serial line.
+Break key is obtained in PC keyboards pressing at the same time
+control and pause.
+.\" Ctrl+PrintScreen
+.Pp
+.It Sy Ctrl+PrintScreen
+Toggle if st should print to the
+.Ar iofile .
+.\" Shift+PrintScreen
+.Pp
+.It Sy Shift+PrintScreen
+Print the full screen to the
+.Ar iofile .
+.\" PrintScreen
+.Pp
+.It Sy PrintScreen
+Print the selection to the
+.Ar iofile .
+.\" Ctrl+Shift+PageUp
+.Pp
+.It Sy Ctrl+Shift+PageUp
+Increase font size.
+.\" Ctrl+Shift+PageDown
+.Pp
+.It Sy Ctrl+Shift+PageDown
+Decrease font size.
+.\" Ctrl+Shift+Home
+.Pp
+.It Sy Ctrl+Shift+Home
+Reset to default font size.
+.\" Ctrl+Shift+y
+.Pp
+.It Sy Ctrl+Shift+y
+Paste from primary selection (middle mouse button).
+.\" Ctrl+Shift+c
+.Pp
+.It Sy Ctrl+Shift+c
+Copy the selected text to the clipboard selection.
+.\" Ctrl+Shift+v
+.Pp
+.It Sy Ctrl+Shift+v
+Paste from the clipboard selection.
+.El
+.\" ==================================================================
+.Ss Vim-Browse Shortcuts
+The vim-browse patch offers the possibility to move through the
+terminal history-buffer, search for strings and use VIM-like motions,
+operations and quantifiers.
+.Pp
+It operates on top of the history-patch, which comes with a set of
+optional features that can be compiled-in as separate patches.
+It is possible to move through terminal history while an application
+currently writes to the terminal buffer and comes with an overlay
+highlighting the current search results on screen and showing current
+operation / motions / search string.
+.Pp
+.\" *** Shortcuts description: sublist start ***
+.Bl -tag -width Ds -compact
+.\" ------------------------------------------------------------------
+.It Sy Enter/Leave Different modes
+.\" ****** Enter/Leave Different modes: sublist start.
+.Bl -tag -width Ds
+.\" ********* Alt+c
+.It Sy Alt+c
+Enter normal mode (give input control to the vim/history patch).
+.\" ********* Escape, Enter, i
+.It Sy Escape , Enter , i
+Enter insert mode
+.Po
+return control back to
+.Nm
+.Pc
+and abort resp. terminate operation.
+.Pp
+Operation/Motion active (see below): yes.
+.\" ********* Escape, Enter
+.It Sy Escape , Enter
+Abort resp. terminate the current operation / motion.
+.Pp
+Operation/Motion active (see below): no.
+.El
+.\" ****** Enter/Leave Different modes: sublist end.
+.\" ------------------------------------------------------------------
+.It Sy Operations
+.\" ****** Operations: sublist start.
+.Bl -tag -width Ds
+.\" ********* y
+.It Sy y
+Yank mode (yank 'till the next motion).
+Terminated via a motion or as described above.
+.\" ********* v
+.It Sy v
+Visual mode (start selection of characters in REGULAR mode, that can
+be toggled to RECTANGULAR selection mode via motion t).
+Terminated by yanking or as described above.
+.\" ********* V
+.It Sy V
+Visual line mode (start selection of entire lines).
+Terminated by yanking or as described above.
+.El
+.\" ****** Enter/Leave Different modes: sublist end.
+.\" ------------------------------------------------------------------
+.It Sy Motions
+.\" ****** Motions: sublist start
+.Bl -tag -width Ds
+.\" ********* [0-9]
+.It Sy [0-9]
+Quantifier.
+.\" ********* i, a
+.It Sy i , a
+Inner / around
+.Po
+used for motions like
+.Sy yiw
+.Pq [operation]{i/a}{w/W/}/}/[/]/(/)/"/'
+.Pc
+Matching parenthesis is not as sophisticated as in vim.
+.Pp
+Operation active: yes.
+.\" ********* Backspace
+.It Sy Backspace
+Remove last-inserted character from search string / quantifier.
+.\" ********* .
+.It Sy \&.
+Reexecute last command.
+.\" ********* c
+.It Sy c
+Clear search string, last command.
+.\" ********* r
+.It Sy r
+Manual repaint.
+.\" ********* /, ?
+.It Sy \&/ , \&?
+Start forward / backward search.
+.\" ********* K, J
+.It Sy K , J
+Scroll buffer up / down.
+.\" ********* k, j
+.It Sy k , j
+Move cursor up / down.
+.\" ********* h, l
+.It Sy h , l
+Move cursor left / right.
+.\" ********* H, M, L
+.It Sy H , M , L
+Move cursor to first line, center, last line on screen.
+.\" ********* s
+.It Sy s
+Toggle MODE_ALTSCREEN (e.g. if vim/htop are currently running, press
+.Sy s
+in order to go to the history buffer filled by previous commands.
+.\" ********* S
+.It Sy S
+Toggle MODE_ALTSCREEN once.
+.\" ********* G
+.It Sy G
+Move (history) cursor to the current insert cursor.
+.\" ********* g
+.It Sy g
+Move (history) scroll offset to the offset of the insert-cursor.
+.\" ********* 0, $
+.It Sy 0 , \&$
+Move cursor to the begin / end of the current line.
+.\" ********* t
+.It Sy t
+Toggle visual select mode.
+.Pp
+Operation active: visual.
+.\" ********* n, N
+.It Sy n , N
+Move cursor to the next / previous occurrence of the search string.
+.\" ********* w, W
+.It Sy w , W
+Move cursor to the beginning of the next word (with different word
+delimiters).
+.\" ********* b, B
+.It Sy b , B
+Move cursor to the beginning of the previous word.
+.\" ********* e, E
+.It Sy e , E
+Move cursor to the next word-end.
+.\" ********* Ctrl+u, Ctrl+d
+.It Sy Ctrl+u , Ctrl+d
+Scroll buffer half a screen up / down.
+.\" ********* Ctrl+b, Ctrl+f
+.It Sy Ctrl+b , Ctrl+f
+Move cursor to the first / last line on the screen and scroll the
+buffer up / down.
+.\" ********* y
+.It Sy y
+Yank selection.
+.Pp
+Operation active: yank.
+.\" ********* Ctrl+h
+.It Sy Ctrl+h
+Hide cursor.
+.El
+.\" ****** Motions: sublist end.
+.\" ------------------------------------------------------------------
+.El
+.\" *** Shortcuts: sublist end.
+.Pp
+Custom commands can be added to the variable
+.Sy nmKeys
+in the config.def.h combining the aforementioned commands.
+.\" ==================================================================
+.Sh CUSTOMIZATION
+.Nm
+can be customized by creating a custom config.h file and (re)compiling
+the source code.
+This keeps it fast, secure and simple.
+.\" ==================================================================
+.Sh SEE ALSO
+.Xr scroll 1 ,
+.Xr stty 1 ,
+.Xr tabbed 1 ,
+.Xr utmp 1
+.\" ==================================================================
+.Sh AUTHORS
+See the LICENSE file for the authors.
+.\" ==================================================================
+.Sh LICENSE
+See the LICENSE file for the terms of redistribution.
+.\" ==================================================================
+.Sh BUGS
+See the TODO file in the distribution.
+.\" vim: cc=72 tw=70
+.\" End of file.
