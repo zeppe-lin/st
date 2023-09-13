@@ -15,7 +15,10 @@ typedef enum {
 	finish     = 4
 } ExitState;
 
-ExitState kPressHist(char const *txt, size_t len, int ctrl, KeySym const *kSym);
+ExitState kPressHist(char const *txt, size_t len, int ctrl,
+                     KeySym const *kSym);
+
 ExitState pressKeys(char const* s, size_t e);
 
-/* End of file. */
+/* vim: cc=72 tw=70
+ * End of file. */
