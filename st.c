@@ -23,32 +23,35 @@
 #include "win.h"
 
 #if   defined(__linux)
- #include <pty.h>
+# include <pty.h>
 #elif defined(__OpenBSD__) || defined(__NetBSD__) || defined(__APPLE__)
- #include <util.h>
+# include <util.h>
 #elif defined(__FreeBSD__) || defined(__DragonFly__)
- #include <libutil.h>
+# include <libutil.h>
 #endif
 
 /* Arbitrary sizes. */
-#define UTF_INVALID		0xFFFD
-#define UTF_SIZ			4
-#define ESC_BUF_SIZ		(128*UTF_SIZ)
-#define ESC_ARG_SIZ		16
-#define STR_BUF_SIZ		ESC_BUF_SIZ
-#define STR_ARG_SIZ		ESC_ARG_SIZ
+#define UTF_INVALID  0xFFFD
+#define UTF_SIZ      4
+#define ESC_BUF_SIZ  (128*UTF_SIZ)
+#define ESC_ARG_SIZ  16
+#define STR_BUF_SIZ  ESC_BUF_SIZ
+#define STR_ARG_SIZ  ESC_ARG_SIZ
 
 /*********************************************************************
  * Macros.
  */
-#define IS_SET(flag)		((term.mode & (flag)) != 0)
-#define ISCONTROLC0(c)		(BETWEEN(c, 0, 0x1f) || (c) == 0x7f)
-#define ISCONTROLC1(c)		(BETWEEN(c, 0x80, 0x9f))
-#define ISCONTROL(c)		(ISCONTROLC0(c) || ISCONTROLC1(c))
-#define ISDELIM(u)		(u && wcschr(worddelimiters, u))
+#define IS_SET(flag)    ((term.mode & (flag)) != 0)
+#define ISCONTROLC0(c)  (BETWEEN(c, 0, 0x1f) || (c) == 0x7f)
+#define ISCONTROLC1(c)  (BETWEEN(c, 0x80, 0x9f))
+#define ISCONTROL(c)    (ISCONTROLC0(c) || ISCONTROLC1(c))
+#define ISDELIM(u)      (u && wcschr(worddelimiters, u))
 static inline int max(int a, int b) { return a > b ? a : b; }
 static inline int min(int a, int b) { return a < b ? a : b; }
 
+/*********************************************************************
+ * Enums and Typedefs.
+ */
 enum term_mode {
 	MODE_WRAP       = 1 << 0,
 	MODE_INSERT     = 1 << 1,
@@ -159,6 +162,9 @@ typedef struct {
 	int narg;              /* nb of args */
 } STREscape;
 
+/*********************************************************************
+ * Functions declaration.
+ */
 static void execsh(char *, char **);
 static void stty(char **);
 static void sigchld(int);
