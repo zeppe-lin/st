@@ -38,4 +38,5 @@ void xsetsel(char *);
 int xstartdraw(void);
 void xximspot(int, int);
 
-/* End of file. */
+/* vim: cc=72 tw=70
+ * End of file. */
