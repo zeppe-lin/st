@@ -421,4 +421,5 @@ void historyPreDraw() {
 	historyOpToggle(-1, 0);
 }
 
-/* End of file. */
+/* vim: cc=72 tw=70
+ * End of file. */
