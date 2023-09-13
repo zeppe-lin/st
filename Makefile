@@ -7,9 +7,6 @@ OBJ = $(SRC:.c=.o)
 
 all: st
 
-.c.o:
-	${CC} ${CFLAGS} ${CPPFLAGS} -c $<
-
 config.h:
 	cp config.def.h config.h
 
@@ -20,7 +17,6 @@ x.o: arg.h config.h st.h win.h
 ${OBJ}: config.h config.mk
 
 st: ${OBJ}
-	${LD} ${OBJ} ${LDFLAGS} -o $@
 
 terminfo-entry:
 	tic -sx st.info
