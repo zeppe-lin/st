@@ -2142,4 +2142,5 @@ opencopied(const Arg *arg)
 	system(cmd);
 }
 
-/* End of file. */
+/* vim: cc=72 tw=70
+ * End of file. */
