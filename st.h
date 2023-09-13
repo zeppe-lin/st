@@ -145,4 +145,5 @@ extern const char URLChars[];
 extern const char* URLStrings[];
 extern unsigned int const amountURLStrings;
 
-/* End of file. */
+/* vim: cc=72 tw=70
+ * End of file. */
