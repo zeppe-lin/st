@@ -2368,8 +2368,9 @@ eschandle(uchar ascii)
 			strhandle();
 		break;
 	default:
-		fprintf(stderr, "erresc: unknown sequence ESC 0x%02X '%c'\n",
-			(uchar) ascii, isprint(ascii)? ascii:'.');
+		fprintf(stderr,
+			"erresc: unknown sequence ESC 0x%02X '%c'\n",
+			(uchar)ascii, isprint(ascii) ? ascii : '.');
 		break;
 	}
 	return 1;
