@@ -40,7 +40,7 @@ typedef struct {
 	uint button;
 	void (*func)(const Arg *);
 	const Arg arg;
-	uint  release;
+	uint release;
 } MouseShortcut;
 
 typedef struct {
@@ -66,9 +66,9 @@ typedef struct {
 } ResourcePref;
 
 /* X modifiers */
-#define XK_ANY_MOD	UINT_MAX
-#define XK_NO_MOD	0
-#define XK_SWITCH_MOD	(1<<13)
+#define XK_ANY_MOD     UINT_MAX
+#define XK_NO_MOD      0
+#define XK_SWITCH_MOD  (1<<13)
 
 /* function definitions used in config.h */
 static void clipcopy(const Arg *);
@@ -88,10 +88,10 @@ static void ttysend(const Arg *);
 #define XEMBED_FOCUS_OUT 5
 
 /* macros */
-#define IS_SET(flag)	((win.mode & (flag)) != 0)
-#define TRUERED(x)	(((x) & 0xff0000) >> 8)
-#define TRUEGREEN(x)	(((x) & 0xff00))
-#define TRUEBLUE(x)	(((x) & 0xff) << 8)
+#define IS_SET(flag)  ((win.mode & (flag)) != 0)
+#define TRUERED(x)    (((x) & 0xff0000) >> 8)
+#define TRUEGREEN(x)  (((x) & 0xff00))
+#define TRUEBLUE(x)   (((x) & 0xff) << 8)
 
 typedef XftDraw *Draw;
 typedef XftColor Color;
@@ -222,14 +222,14 @@ static void (*handler[LASTEvent])(XEvent *) = {
 	[ButtonPress]      = bpress,
 	[ButtonRelease]    = brelease,
 /*
- * Uncomment if you want the selection to disappear when you select something
- * different in another window.
+ * Uncomment if you want the selection to disappear when you select
+ * something different in another window.
  */
 /*	[SelectionClear]   = selclear_, */
 	[SelectionNotify]  = selnotify,
 /*
- * PropertyNotify is only turned on when there is some INCR transfer happening
- * for the selection retrieval.
+ * PropertyNotify is only turned on when there is some INCR transfer
+ * happening for the selection retrieval.
  */
 	[PropertyNotify]   = propnotify,
 	[SelectionRequest] = selrequest,
@@ -255,7 +255,8 @@ typedef struct {
 	Rune    unicodep;
 } Fontcache;
 
-/* Fontcache is an array now. A new font will be appended to the array. */
+/* Fontcache is an array now.  A new font will be appended to the
+ * array. */
 static Fontcache *frc = NULL;
 static int frclen = 0;
 static int frccap = 0;
@@ -487,8 +488,8 @@ bpress(XEvent *e)
 
 	if (e->xbutton.button == Button1) {
 		/*
-		 * If the user clicks below predefined timeouts specific
-		 * snapping behaviour is exposed.
+		 * If the user clicks below predefined timeouts
+		 * specific snapping behaviour is exposed.
 		 */
 		clock_gettime(CLOCK_MONOTONIC, &now);
 		int const tripleClick = TIMEDIFF(now, xsel.tclick2) <= tripleclicktimeout,
@@ -570,9 +571,10 @@ selnotify(XEvent *e)
 
 		if (e->type == PropertyNotify && nitems == 0 && rem == 0) {
 			/*
-			 * If there is some PropertyNotify with no data, then
-			 * this is the signal of the selection owner that all
-			 * data has been transferred. We won't need to receive
+			 * If there is some PropertyNotify with no
+			 * data, then this is the signal of the
+			 * selection owner that all data has been
+			 * transferred.  We won't need to receive
 			 * PropertyNotify events anymore.
 			 */
 			MODBIT(xw.attrs.event_mask, 0, PropertyChangeMask);
@@ -581,15 +583,16 @@ selnotify(XEvent *e)
 
 		if (type == incratom) {
 			/*
-			 * Activate the PropertyNotify events so we receive
-			 * when the selection owner does send us the next
-			 * chunk of data.
+			 * Activate the PropertyNotify events so we
+			 * receive when the selection owner does send
+			 * us the next chunk of data.
 			 */
 			MODBIT(xw.attrs.event_mask, 1, PropertyChangeMask);
 			XChangeWindowAttributes(xw.dpy, xw.win, CWEventMask, &xw.attrs);
 
 			/*
-			 * Deleting the property is the transfer start signal.
+			 * Deleting the property is the transfer start
+			 * signal.
 			 */
 			XDeleteProperty(xw.dpy, xw.win, (int)property);
 			continue;
@@ -597,9 +600,9 @@ selnotify(XEvent *e)
 
 		/*
 		 * As seen in getsel:
-		 * Line endings are inconsistent in the terminal and GUI world
-		 * copy and pasting. When receiving some selection data,
-		 * replace all '\n' with '\r'.
+		 * Line endings are inconsistent in the terminal and
+		 * GUI world copy and pasting.  When receiving some
+		 * selection data, replace all '\n' with '\r'.
 		 * FIXME: Fix the computer world.
 		 */
 		repl = data;
@@ -1894,9 +1897,9 @@ run(void)
 	do {
 		XNextEvent(xw.dpy, &ev);
 		/*
-		 * This XFilterEvent call is required because of XOpenIM.  It
-		 * does filter out the key event and some client message for
-		 * the input method too.
+		 * This XFilterEvent call is required because of
+		 * XOpenIM.  It does filter out the key event and some
+		 * client message for the input method too.
 		 */
 		if (XFilterEvent(&ev, None))
 			continue;
@@ -1942,15 +1945,17 @@ run(void)
 		}
 
 		/*
-		 * To reduce flicker and tearing, when new content or event
-		 * triggers drawing, we first wait a bit to ensure we got
-		 * everything, and if nothing new arrives - we draw.  We start
-		 * with trying to wait minlatency ms.  If more content arrives
-		 * sooner, we retry with shorter and shorter periods, and
-		 * eventually draw even without idle after maxlatency ms.
-		 * Typically this results in low latency while interacting,
-		 * maximum latency intervals during `cat huge.txt`, and perfect
-		 * sync with periodic updates from animations/key-repeats/etc.
+		 * To reduce flicker and tearing, when new content or
+		 * event triggers drawing, we first wait a bit to
+		 * ensure we got everything, and if nothing new
+		 * arrives - we draw.  We start with trying to wait
+		 * minlatency ms.  If more content arrives sooner, we
+		 * retry with shorter and shorter periods, and
+		 * eventually draw even without idle after maxlatency
+		 * ms.  Typically this results in low latency while
+		 * interacting, maximum latency intervals during `cat
+		 * huge.txt`, and perfect sync with periodic updates
+		 * from animations/key-repeats/etc.
 		 */
 		if (FD_ISSET(ttyfd, &rfd) || xev) {
 			if (!drawing) {
@@ -1995,9 +2000,9 @@ resource_load(XrmDatabase db, char *name, enum resource_type rtype, void *dst)
 	XrmValue ret;
 
 	snprintf(fullname, sizeof(fullname), "%s.%s",
-			opt_name  ? opt_name  : "st", name);
+	         opt_name  ? opt_name  : "st", name);
 	snprintf(fullclass, sizeof(fullclass), "%s.%s",
-			opt_class ? opt_class : "St", name);
+	         opt_class ? opt_class : "St", name);
 	fullname[sizeof(fullname) - 1] = fullclass[sizeof(fullclass) - 1] = '\0';
 
 	XrmGetResource(db, fullname, fullclass, &type, &ret);
@@ -2132,8 +2137,7 @@ opencopied(const Arg *arg)
 
 	/*
 	 * account for space/quote (3) and \0 (1) and & (1)
-	 * e.g.:
-	 *	xdg-open "https://st.suckless.org"&
+	 * e.g., xdg-open "https://st.suckless.org" &
 	 */
 	size_t const cmd_size = max_cmd + strlen(clip) + 5;
 	char cmd[cmd_size];
