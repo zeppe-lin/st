@@ -52,4 +52,5 @@ static inline void assign(DynamicArray* s, DynamicArray const *o) {
 		memcpy(s->content, o->content, (s->init=o->init));
 }
 
-/* End of file. */
+/* vim: cc=72 tw=70
+ * End of file. */
