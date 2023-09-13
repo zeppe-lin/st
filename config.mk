@@ -29,8 +29,7 @@ INCS      = -I${X11INC} -I${FT2INC}
 LIBS      = -L${X11LIB} -lX11 -lm -lrt -lutil ${FT2LIB} -lfreetype
 
 # flags
-CPPFLAGS  = -D_XOPEN_SOURCE=600 -D_BSD_SOURCE -DVERSION=\"${VERSION}\" \
-	    ${INCS}
+CPPFLAGS  = -D_DEFAULT_SOURCE -DVERSION=\"${VERSION}\" ${INCS}
 CFLAGS    = -std=c99 -pedantic -Wall -Wextra -Wformat
 LDFLAGS   = ${LIBS}
 
