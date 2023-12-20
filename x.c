@@ -2137,7 +2137,7 @@ opencopied(const Arg *arg)
 
 	/*
 	 * account for space/quote (3) and \0 (1) and & (1)
-	 * e.g., xdg-open "https://st.suckless.org" &
+	 * e.g. xdg-open "https://st.suckless.org" &
 	 */
 	size_t const cmd_size = max_cmd + strlen(clip) + 5;
 	char cmd[cmd_size];
