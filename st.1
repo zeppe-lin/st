@@ -96,7 +96,7 @@ means standard output.
 .It Fl T Ar title
 .It Fl t Ar title
 Define the window title
-.Pq Ql st .
+.Pq Dq st .
 .\" *** -w windowid
 .Pp
 .It Fl w Ar windowid
@@ -121,15 +121,15 @@ initializes the serial line to 8 bits, no parity, 1 stop bit and a
 38400 baud rate.
 The speed is set by appending it as last argument
 .Po
-.Ql st -l /dev/ttyS0 115200
+.Dq st -l /dev/ttyS0 115200
 .Pc .
 Arguments before the last one are
 .Xr stty 1
 flags.
 If you want to set odd parity on 115200 baud use for example
-.Ql st -l /dev/ttyS0 parenb parodd 115200 .
+.Dq st -l /dev/ttyS0 parenb parodd 115200 .
 Set the number of bits by using for example
-.Ql st -l /dev/ttyS0 cs7 115200 .
+.Dq st -l /dev/ttyS0 cs7 115200 .
 See
 .Xr stty 1
 for more arguments and cases.
