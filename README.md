@@ -23,7 +23,7 @@ The original sources can be downloaded from:
 REQUIREMENTS
 ------------
 **Build time**:
-- c99 compiler
+- C99 compiler
 - POSIX sh(1p), make(1p) and "mandatory utilities"
 - libX11
 - fontconfig
