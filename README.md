@@ -1,11 +1,12 @@
 OVERVIEW
---------
-This directory contains st, a simple terminal emulator for X that is
-based on Aurélien APTEL (`<aurelien dot aptel at gmail dot com>`) bt
-source code.
+========
 
-This st distribution is a fork of suckless' st version 0.8.4 with the
-following patches:
+This directory contains st, a simple terminal emulator for X that is based on
+Aurélien APTEL (`<aurelien dot aptel at gmail dot com>`) bt source code.
+
+This st distribution is a fork of suckless' st version 0.8.4 with the following
+patches:
+
 - clipboard
 - copyurl
 - open copied url
@@ -21,8 +22,10 @@ The original sources can be downloaded from:
 
 
 REQUIREMENTS
-------------
-**Build time**:
+============
+
+Build time
+----------
 - C99 compiler
 - POSIX sh(1p), make(1p) and "mandatory utilities"
 - libX11
@@ -32,19 +35,21 @@ REQUIREMENTS
 
 
 INSTALL
--------
-The shell commands `make && make install` should build and install
-this package.  See `config.mk` file for configuration parameters.
+=======
 
-st can be customized by creating a custom `config.h` file and
-(re)compiling the source code.
+The shell commands `make && make install` should build and install this
+package.  See `config.mk` file for configuration parameters.
+
+st can be customized by creating a custom `config.h` file and (re)compiling the
+source code.
 
 
 BUGS
-----
+====
+
 If you find a program that complains that st is unknown/not
-recognised/unsupported/etc, try to compile the st terminfo entry with
-the following command:
+recognised/unsupported/etc, try to compile the st terminfo entry with the
+following command:
 
 ```sh
 tic -sx st.info
@@ -60,6 +65,7 @@ See terminfo(5) for additional details.
 
 
 LICENSE
--------
+=======
+
 st is licensed through MIT/X Consortium License.
 See LICENSE file for copyright and license details.
