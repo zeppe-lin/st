@@ -6,18 +6,18 @@ Aurélien APTEL (`<aurelien dot aptel at gmail dot com>`) bt source code.
 
 This st distribution is a fork of suckless' st version 0.8.4 with the following
 patches:
-* clipboard
-* copyurl
-* open copied url
-* vim browse
-* xresources
+  * clipboard
+  * copyurl
+  * open copied url
+  * vim browse
+  * xresources
 
 See git log for further differences.
 
 The original sources can be downloaded from:
-1. https://git.suckless.org/st                 (git)
-2. https://dl.suckless.org/st/st-0.8.4.tar.gz  (tarball)
-3. https://st.suckless.org/patches/            (patches)
+  1. https://git.suckless.org/st                 (git)
+  2. https://dl.suckless.org/st/st-0.8.4.tar.gz  (tarball)
+  3. https://st.suckless.org/patches/            (patches)
 
 
 REQUIREMENTS
@@ -25,12 +25,12 @@ REQUIREMENTS
 
 Build time
 ----------
-* C99 compiler
-* POSIX sh(1p), make(1p) and "mandatory utilities"
-* libX11
-* fontconfig
-* freetype2
-* ncurses is optional, for compiling terminfo entry
+  * C99 compiler
+  * POSIX sh(1p), make(1p) and "mandatory utilities"
+  * libX11
+  * fontconfig
+  * freetype2
+  * ncurses is optional, for compiling terminfo entry
 
 
 INSTALL
