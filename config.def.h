@@ -9,6 +9,7 @@
  *
  * Can be redefined in ~/.Xresources as following:
  *    st.font: Monospace:size=9:antialias=true:autohint=true
+ *    st.font: -Misc-Fixed-Medium-R-Normal--14-130-75-75-C-70-ISO10646-1
  */
 static char *font = "Monospace:size=9:antialias=true:autohint=true";
 static int borderpx = 2;
