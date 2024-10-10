@@ -115,14 +115,22 @@ static const char *colorname[] = {
   [13] = "#d3869b", /* magenta */
   [14] = "#8ec07c", /* cyan    */
   [15] = "#ebdbb2", /* white   */
+
+  [255] = 0,
+
+  /* More colors can be added after 255 to use with DefaultXX. */
+  "#cccccc",
+  "#555555",
+  "gray90", /* default foreground color */
+  "black", /* default background color */
 };
 
 /* Default colors (colorname index).
  */
-unsigned int defaultfg = 15;           /* foreground color     */
-unsigned int defaultbg = 0;            /* background color     */
-static unsigned int defaultcs = 15;    /* cursor color         */
-static unsigned int defaultrcs = 257;  /* reverse cursor color */
+unsigned int defaultfg = 15;    /* foreground color     */
+unsigned int defaultbg = 0;     /* background color     */
+unsigned int defaultcs = 15;    /* cursor color         */
+unsigned int defaultrcs = 258;  /* reverse cursor color */
 
 /*********************************************************************
  * [VimBrowse] settings and appearance.
