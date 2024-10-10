@@ -8,9 +8,9 @@
  * See http://freedesktop.org/software/fontconfig/fontconfig-user.html
  *
  * Can be redefined in ~/.Xresources as following:
- *    st.font: Sans Mono:pixelsize=12:antialias=true:autohint=true
+ *    st.font: Monospace:size=9:antialias=true:autohint=true
  */
-static char *font = "Sans Mono:pixelsize=12:antialias=true:autohint=true";
+static char *font = "Monospace:size=9:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /* What program is execed by st depends of these precedence rules:
