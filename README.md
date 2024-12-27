@@ -52,13 +52,11 @@ BUGS
 If you find a program that complains that st is unknown/not
 recognised/unsupported/etc, try to compile the st terminfo entry with
 the following command:
-
 ```sh
 tic -sx st.info
 ```
 
 Also, by the following make target:
-
 ```sh
 make terminfo-entry
 ```
