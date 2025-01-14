@@ -38,7 +38,10 @@ clean:
 	rm -f st ${OBJ}
 	rm -f ${DIST}.tar.gz
 
+release:
+	git tag -a v$(VERSION) -m v$(VERSION)
+
 dist: clean
 	git archive --format=tar.gz -o ${DIST}.tar.gz --prefix=${DIST}/ HEAD
 
-.PHONY: all install uninstall clean dist
+.PHONY: all install uninstall clean release dist
