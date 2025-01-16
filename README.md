@@ -1,7 +1,7 @@
 OVERVIEW
 ========
 
-This directory contains st, a simple terminal emulator for X that is
+This repository contains st, a simple terminal emulator for X that is
 based on Aurélien APTEL (`<aurelien dot aptel at gmail dot com>`) bt
 source code.
 
