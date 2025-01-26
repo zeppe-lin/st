@@ -3,7 +3,7 @@
 include config.mk
 
 SRC = st.c x.c
-OBJ = $(SRC:.c=.o)
+OBJ = st.o x.o
 
 all: st
 
